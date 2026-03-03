@@ -1,5 +1,7 @@
 package CollectionManager;
 
+import Commands.Command;
+
 import java.util.HashMap;
 import java.util.Map;
 

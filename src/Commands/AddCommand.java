@@ -11,7 +11,7 @@ public class AddCommand  implements Command{
     private CollectionManager collectionManager;
     private Scanner scanner;
 
-    AddCommand(CollectionManager collectionManager, Scanner scanner) {
+    public AddCommand(CollectionManager collectionManager, Scanner scanner) {
         this.collectionManager = collectionManager;
         this.scanner = scanner;
     }
