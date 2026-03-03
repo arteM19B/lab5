@@ -1,3 +1,7 @@
+package Commands;
+
+import CollectionManager.CollectionManager;
+
 public class InfoCommand implements Command {
     private CollectionManager collectionManager;
 
@@ -26,7 +30,7 @@ public class InfoCommand implements Command {
 
     @Override
     public String toString() {
-        return "InfoCommand";
+        return "вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)";
     }
 
 

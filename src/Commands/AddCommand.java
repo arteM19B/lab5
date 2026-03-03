@@ -1,3 +1,10 @@
+package Commands;
+import Collection.Coordinates;
+import Collection.Location;
+import Collection.Route;
+import CollectionManager.CollectionManager;
+
+
 import java.util.Scanner;
 
 public class AddCommand  implements Command{
@@ -53,5 +60,10 @@ public class AddCommand  implements Command{
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    @Override
+    public String toString() {
+        return "добавить новый элемент в коллекцию";
     }
 }
