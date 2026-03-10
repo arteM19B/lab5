@@ -5,4 +5,8 @@ public class IdGenerator {
     public static long next() {
         return ++counter;
     }
+
+    public static long getCounter() {
+        return counter;
+    }
 }
