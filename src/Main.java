@@ -59,7 +59,6 @@ public class Main {
 
             if (command == null) {
                 System.out.println("Неизвестная команда. Введите 'help' для справки.");
-                continue;
             }
         }
 
