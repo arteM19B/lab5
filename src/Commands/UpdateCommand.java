@@ -18,53 +18,50 @@ public class UpdateCommand implements Command {
     @Override
     public void execute() {
         try {
-            // 1. Запрашиваем ID элемента, который нужно обновить
-            System.out.println("Введите ID маршрута для обновления:");
-            long id = Long.parseLong(scanner.nextLine().trim());
+            Route existingRoute = collectionManager.getById(id);
+            if (existingRoute == null) {
+                System.out.println("Ошибка: Маршрут с ID " + id + " не найден в коллекции.");
+                return;
+            }
 
-            // 2. Собираем данные для НОВОГО маршрута (аналогично AddCommand)
-            System.out.println("Введите новое имя маршрута:");
+            System.out.println("Введите имя маршрута");
             String name = scanner.nextLine();
 
-            System.out.println("Введите координату X:");
+            System.out.println("Координата X");
             Long x = Long.parseLong(scanner.nextLine());
 
-            System.out.println("Введите координату Y:");
+            System.out.println("Координата Y");
             Integer y = Integer.parseInt(scanner.nextLine());
 
             Coordinates coordinates = new Coordinates(x, y);
 
-            System.out.println("Введите расстояние:");
+            System.out.println("Расстояние");
             Long distance = Long.parseLong(scanner.nextLine());
 
-            // Ввод точки "Откуда"
-            System.out.println("Откуда (X Y Имя):");
+            System.out.println("ОТКУДА");
+            System.out.println("Введите (X Y)");
             String line = scanner.nextLine().trim();
             String[] parts1 = line.split("\\s+");
             Float fromX = Float.parseFloat(parts1[0]);
             double fromY = Double.parseDouble(parts1[1]);
-            String fromName = parts1.length > 2 ? parts1[2] : scanner.nextLine();
+            System.out.println("Имя");
+            String fromName = scanner.nextLine();
 
-            // Ввод точки "Куда"
-            System.out.println("Куда (X Y Имя):");
+            System.out.println("КУДА");
+            System.out.println("Введите X Y");
             line = scanner.nextLine().trim();
             String[] parts2 = line.split("\\s+");
             Float toX = Float.parseFloat(parts2[0]);
             double toY = Double.parseDouble(parts2[1]);
-            String toName = parts2.length > 2 ? parts2[2] : scanner.nextLine();
+            System.out.println("Имя");
+            String toName = scanner.nextLine();
 
             Location from = new Location(fromX, fromY, fromName);
             Location to = new Location(toX, toY, toName);
 
-            // 3. Создаем новый объект Route
             Route newRoute = new Route(name, coordinates, from, to, distance);
-
-            // Устанавливаем тот же ID, чтобы не потерять идентификатор в коллекции
             newRoute.setId(id);
-
-            // 4. Вызываем метод обновления с обоими параметрами
             collectionManager.update(id, newRoute);
-
         } catch (NumberFormatException e) {
             System.out.println("Ошибка: неверный формат числа.");
         } catch (Exception e) {
