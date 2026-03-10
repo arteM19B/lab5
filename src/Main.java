@@ -18,11 +18,13 @@ public class Main {
         ShowCommand showCommand = new ShowCommand(collectionManager);
         InfoCommand infoCommand = new InfoCommand(collectionManager);
         UpdateCommand updateCommand = new UpdateCommand(collectionManager, scanner);
+        RemoveIdCommand removeIdCommand = new RemoveIdCommand(collectionManager);
 
         allCommands.put("add", addCommand);
         allCommands.put("info", infoCommand);
         allCommands.put("show", showCommand);
         allCommands.put("update", updateCommand);
+        allCommands.put("remove_by_id", removeIdCommand);
 
 
         HelpCommand helpCommand = new HelpCommand(allCommands);
@@ -32,6 +34,7 @@ public class Main {
         invoker.registerCommand("info", infoCommand);
         invoker.registerCommand("show", showCommand);
         invoker.registerCommand("update", updateCommand);
+        invoker.registerCommand("remove_by_id", removeIdCommand);
 
         while (true) {
             System.out.print("> ");
@@ -43,12 +46,19 @@ public class Main {
             String commandName = parts[0];
             Command command = invoker.getCommand(commandName);
 
-
             if (command != null) {
                 if (command instanceof UpdateCommand && parts.length > 1) {
                     try {
                         long id = Long.parseLong(parts[1].trim());
                         ((UpdateCommand) command).setArgument(id);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Неверный формат ID");
+                        continue;
+                    }
+                } else if (command instanceof RemoveIdCommand && parts.length > 1) {
+                    try {
+                        long id = Long.parseLong(parts[1].trim());
+                        ((RemoveIdCommand) command).setArgument(id);
                     } catch (NumberFormatException e) {
                         System.out.println("Неверный формат ID");
                         continue;
