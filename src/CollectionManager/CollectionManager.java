@@ -30,18 +30,25 @@ public class CollectionManager {
         }
     }
 
-    public void update (long id, Route newRoute) {
+    public void update(long id, Route newRoute) {
         for (int i = 0; i < collection.size(); i++) {
             if (collection.get(i).getId() == id) {
                 collection.set(i, newRoute);
-                System.out.println("Updated route: " + newRoute.toString());
+                System.out.println("Обновлённая дорога: " + newRoute.toString());
                 return;
             }
         }
-        System.out.println("No route found with id: " + id);
+        System.out.println("Не найдено дороги с таким id: " + id);
     }
 
-    public void clear() { collection.clear();}
+    public void clear() {
+        collection.clear();
+        System.out.println("Коллекция очищена");
+    }
+
+    public void remove_last() {
+        collection.removeLast();
+    }
 
     public int  size() {
         return collection.size();
