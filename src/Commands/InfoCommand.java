@@ -9,8 +9,6 @@ public class InfoCommand implements Command {
         this.collectionManager = collectionManager;
     }
 
-    //
-
     @Override
     public void execute() {
         System.out.println("Тип: " + collectionManager.getType());
