@@ -60,6 +60,6 @@ public class Route {
 
     @Override
     public String toString() {
-        return(name + " " + coordinates + "; " + from + " -> " + to + " " + distance + " " + creationDate + " " + id);
+        return(name + "; " + coordinates + "; " + from + " -> " + to + "; " + distance + "; Дата создания: " + creationDate + "; ID маршрута: " + id);
     }
 }
