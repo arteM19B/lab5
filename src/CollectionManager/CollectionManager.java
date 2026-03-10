@@ -29,6 +29,18 @@ public class CollectionManager {
             System.out.println(routes);
         }
     }
+
+    public void update (long id, Route newRoute) {
+        for (int i = 0; i < collection.size(); i++) {
+            if (collection.get(i).getId() == id) {
+                collection.set(i, newRoute);
+                System.out.println("Updated route: " + newRoute.toString());
+                return;
+            }
+        }
+        System.out.println("No route found with id: " + id);
+    }
+
     public void clear() { collection.clear();}
 
     public int  size() {

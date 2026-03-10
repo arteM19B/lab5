@@ -57,6 +57,9 @@ public class Route {
     public LocalDateTime getStartTime() {
         return creationDate.atStartOfDay();
     }
+    public void setId(long id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {

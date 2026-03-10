@@ -17,10 +17,13 @@ public class Main {
         AddCommand addCommand = new AddCommand(collectionManager, scanner);
         ShowCommand showCommand = new ShowCommand(collectionManager);
         InfoCommand infoCommand = new InfoCommand(collectionManager);
+        UpdateCommand updateCommand = new UpdateCommand(collectionManager, scanner);
 
         allCommands.put("add", addCommand);
         allCommands.put("info", infoCommand);
         allCommands.put("show", showCommand);
+        allCommands.put("update", updateCommand);
+
 
         HelpCommand helpCommand = new HelpCommand(allCommands);
 
@@ -28,6 +31,7 @@ public class Main {
         invoker.registerCommand("add", addCommand);
         invoker.registerCommand("info", infoCommand);
         invoker.registerCommand("show", showCommand);
+        invoker.registerCommand("update", updateCommand);
 
         while (true) {
             System.out.print("> ");
@@ -37,17 +41,26 @@ public class Main {
 
             String[] parts = input.split(" ", 2);
             String commandName = parts[0];
-
-
             Command command = invoker.getCommand(commandName);
+
+
+            if (command != null) {
+                if (command instanceof UpdateCommand && parts.length > 1) {
+                    try {
+                        long id = Long.parseLong(parts[1].trim());
+                        ((UpdateCommand) command).setArgument(id);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Неверный формат ID");
+                        continue;
+                    }
+                }
+                command.execute();
+            }
 
             if (command == null) {
                 System.out.println("Неизвестная команда. Введите 'help' для справки.");
                 continue;
             }
-
-            // Выполняем команду
-            command.execute();
         }
 
 
