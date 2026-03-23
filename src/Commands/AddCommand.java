@@ -1,5 +1,6 @@
 package Commands;
 import Collection.Coordinates;
+import Collection.IdGenerator;
 import Collection.Location;
 import Collection.Route;
 import CollectionManager.CollectionManager;
@@ -55,7 +56,9 @@ public class AddCommand  implements Command{
             Location from = new Location(fromX, fromY, fromName);
             Location to = new Location(toX, toY, toName);
 
-            Route route = new Route(name, coordinates, from, to, distance);
+            long id = IdGenerator.next();
+
+            Route route = new Route(id, name, coordinates, from, to, distance);
             collectionManager.add(route);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());

@@ -12,7 +12,7 @@ public class Route implements Comparable<Route>{
     private Location to; //Поле может быть null
     private long distance; //Значение поля должно быть больше 1
 
-    public Route(String name, Coordinates coordinates, Location from, Location to, long distance) {
+    public Route(long id, String name, Coordinates coordinates, Location from, Location to, long distance) {
         if (coordinates == null) {
             throw new IllegalArgumentException("coordinates can't be null");
         }
@@ -22,14 +22,13 @@ public class Route implements Comparable<Route>{
         if (name == null) {
             throw new IllegalArgumentException("name can't be null");
         }
-//        this.id = ;
+        this.id = id;
         this.coordinates = coordinates;
         this.name = name;
         this.creationDate = LocalDate.now();
         this.from = from;
         this.to = to;
         this.distance = distance;
-        this.id = IdGenerator.next();
     }
 
     @Override

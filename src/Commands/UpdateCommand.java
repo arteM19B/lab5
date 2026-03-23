@@ -59,7 +59,9 @@ public class UpdateCommand implements Command {
             Location from = new Location(fromX, fromY, fromName);
             Location to = new Location(toX, toY, toName);
 
-            Route newRoute = new Route(name, coordinates, from, to, distance);
+            long id = IdGenerator.next();
+
+            Route newRoute = new Route(id, name, coordinates, from, to, distance);
             newRoute.setId(id);
             collectionManager.update(id, newRoute);
         } catch (NumberFormatException e) {
