@@ -18,7 +18,6 @@ public class RemoveIdCommand implements Command {
         Iterator<Route> iterator = collectionManager.getCollection().iterator();
         while (iterator.hasNext()) {
             long removeId = iterator.next().getId();
-
             if (removeId == id) {
                 iterator.remove();
                 System.out.println("Дорога с данным id удалена");
