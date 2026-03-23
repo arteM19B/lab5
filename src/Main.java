@@ -33,6 +33,7 @@ public class Main {
         SaveCommand saveCommand = new SaveCommand(collectionManager);
         ExitCommand exitCommand = new ExitCommand();
         ExecuteScriptCommand executeScriptCommand = new ExecuteScriptCommand(invoker);
+        RemoveAtCommand removeAtCommand = new RemoveAtCommand(collectionManager);
 
 
         allCommands.put("add", addCommand);
@@ -46,6 +47,7 @@ public class Main {
         allCommands.put("save", saveCommand);
         allCommands.put("exit", exitCommand);
         allCommands.put("execute_script", executeScriptCommand);
+        allCommands.put("remove_at", removeLastCommand);
 
 
         HelpCommand helpCommand = new HelpCommand(allCommands);
@@ -62,6 +64,7 @@ public class Main {
         invoker.registerCommand("save", saveCommand);
         invoker.registerCommand("exit", exitCommand);
         invoker.registerCommand("execute_script", executeScriptCommand);
+        invoker.registerCommand("remove_at", removeAtCommand);
 
         while (true) {
             System.out.print("> ");
@@ -93,6 +96,9 @@ public class Main {
                 } else if (command instanceof ExecuteScriptCommand) {
                     String argument = parts[1];
                     ((ExecuteScriptCommand) command).setArgument(argument);   // ← вот это важно добавить!
+                } else if (command instanceof RemoveAtCommand) {
+                    int index = Integer.parseInt(parts[1]);
+                    ((RemoveAtCommand) command).setIndex(index);   // ← вот это важно добавить!
                 }
                 command.execute();
             }

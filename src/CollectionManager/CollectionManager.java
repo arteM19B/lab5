@@ -34,6 +34,15 @@ public class CollectionManager {
         }
     }
 
+    public void removeAt(int index) {
+        if (index < 0 || index >= collection.size()) {
+            System.out.println("Неверный индекс");
+            return;
+        }
+        collection.remove(index);
+        System.out.println("Коллекция на позиции " + index + "удалена");
+    }
+
     public void update(long id, Route newRoute) {
         for (int i = 0; i < collection.size(); i++) {
             if (collection.get(i).getId() == id) {
