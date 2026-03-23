@@ -9,59 +9,32 @@ import CollectionManager.CollectionManager;
 import java.util.Scanner;
 
 public class AddCommand  implements Command{
-    private CollectionManager collectionManager;
-    private Scanner scanner;
+    private final CollectionManager collectionManager;
+    private final Scanner scanner;
+    private Scanner scriptScanner;
 
     public AddCommand(CollectionManager collectionManager, Scanner scanner) {
         this.collectionManager = collectionManager;
         this.scanner = scanner;
+        this.scriptScanner = null;
+    }
+
+    public void setScriptScanner(Scanner scriptScanner) {
+        this.scriptScanner = scriptScanner;
     }
 
     @Override
     public void execute() {
+        Scanner activeScanner = (scriptScanner != null) ? scriptScanner : scanner;
+        boolean isConsole = (scriptScanner == null);
         try {
-            System.out.println("Введите имя маршрута");
-            String name = scanner.nextLine();
-
-            System.out.println("Координата X");
-            Long x = Long.parseLong(scanner.nextLine());
-
-            System.out.println("Координата Y");
-            Integer y = Integer.parseInt(scanner.nextLine());
-
-            Coordinates coordinates = new Coordinates(x, y);
-
-            System.out.println("Расстояние");
-            Long distance = Long.parseLong(scanner.nextLine());
-
-            System.out.println("ОТКУДА");
-            System.out.println("Введите (X Y)");
-            String line = scanner.nextLine().trim();
-            String[] parts1 = line.split("\\s+");
-            Float fromX = Float.parseFloat(parts1[0]);
-            double fromY = Double.parseDouble(parts1[1]);
-            System.out.println("Имя");
-            String fromName = scanner.nextLine();
-
-            System.out.println("КУДА");
-            System.out.println("Введите X Y");
-            line = scanner.nextLine().trim();
-            String[] parts2 = line.split("\\s+");
-            Float toX = Float.parseFloat(parts2[0]);
-            double toY = Double.parseDouble(parts2[1]);
-            System.out.println("Имя");
-            String toName = scanner.nextLine();
-
-
-            Location from = new Location(fromX, fromY, fromName);
-            Location to = new Location(toX, toY, toName);
-
-            long id = IdGenerator.next();
-
-            Route route = new Route(id, name, coordinates, from, to, distance);
+            RouteBuilder builder = new RouteBuilder(activeScanner, isConsole);
+            Route route = builder.build();
             collectionManager.add(route);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Не удалось добавить маршрут: " + e.getMessage());
+        } finally {
+            scriptScanner = null;
         }
     }
 

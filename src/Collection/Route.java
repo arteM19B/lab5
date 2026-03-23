@@ -31,6 +31,25 @@ public class Route implements Comparable<Route>{
         this.distance = distance;
     }
 
+    public Route(String name, Coordinates coordinates, Location from, Location to, long distance) {
+        if (coordinates == null) {
+            throw new IllegalArgumentException("coordinates can't be null");
+        }
+        if (distance <= 1) {
+            throw new IllegalArgumentException("distance must be greater than 1");
+        }
+        if (name == null) {
+            throw new IllegalArgumentException("name can't be null");
+        }
+        this.id = IdGenerator.next();
+        this.coordinates = coordinates;
+        this.name = name;
+        this.creationDate = LocalDate.now();
+        this.from = from;
+        this.to = to;
+        this.distance = distance;
+    }
+
     @Override
     public int compareTo(Route o) {
         return Long.compare(this.distance, o.distance);

@@ -5,69 +5,55 @@ import Collection.*;
 import java.util.Scanner;
 
 public class UpdateCommand implements Command {
-    private CollectionManager collectionManager;
-    private long id;
+    private final CollectionManager collectionManager;
+    private long id = -1;
     private final Scanner scanner;
+    private Scanner scriptScanner;
+
 
 
     public UpdateCommand(CollectionManager collectionManager, Scanner scanner) {
         this.collectionManager = collectionManager;
         this.scanner = scanner;
+        this.scriptScanner = null;
+    }
+
+    public void setArgument(long id) {
+        this.id = id;
+    }
+
+    public void setScriptScanner(Scanner scriptScanner) {
+        this.scriptScanner = scriptScanner;
     }
 
     @Override
     public void execute() {
+        if (id <= 0) {
+            System.out.println("Ошибка: ID не задан или некорректен. Используйте: update <id>");
+            return;
+        }
+
+        Route existing = collectionManager.getById(id);
+        if (existing == null) {
+            System.out.println("Маршрут с ID " + id + " не найден.");
+            return;
+        }
+
+        Scanner activeScanner = (scriptScanner != null) ? scriptScanner : scanner;
+        boolean isInteractive = (scriptScanner == null);
+
         try {
-            Route existingRoute = collectionManager.getById(id);
-            if (existingRoute == null) {
-                System.out.println("Ошибка: Маршрут с ID " + id + " не найден в коллекции.");
-                return;
-            }
+            System.out.println("Обновление маршрута с ID = " + id);
+            RouteBuilder builder = new RouteBuilder(activeScanner, isInteractive);
+            Route newRoute = builder.build();
 
-            System.out.println("Введите имя маршрута");
-            String name = scanner.nextLine();
-
-            System.out.println("Координата X");
-            Long x = Long.parseLong(scanner.nextLine());
-
-            System.out.println("Координата Y");
-            Integer y = Integer.parseInt(scanner.nextLine());
-
-            Coordinates coordinates = new Coordinates(x, y);
-
-            System.out.println("Расстояние");
-            Long distance = Long.parseLong(scanner.nextLine());
-
-            System.out.println("ОТКУДА");
-            System.out.println("Введите (X Y)");
-            String line = scanner.nextLine().trim();
-            String[] parts1 = line.split("\\s+");
-            Float fromX = Float.parseFloat(parts1[0]);
-            double fromY = Double.parseDouble(parts1[1]);
-            System.out.println("Имя");
-            String fromName = scanner.nextLine();
-
-            System.out.println("КУДА");
-            System.out.println("Введите X Y");
-            line = scanner.nextLine().trim();
-            String[] parts2 = line.split("\\s+");
-            Float toX = Float.parseFloat(parts2[0]);
-            double toY = Double.parseDouble(parts2[1]);
-            System.out.println("Имя");
-            String toName = scanner.nextLine();
-
-            Location from = new Location(fromX, fromY, fromName);
-            Location to = new Location(toX, toY, toName);
-
-            long id = IdGenerator.next();
-
-            Route newRoute = new Route(id, name, coordinates, from, to, distance);
             newRoute.setId(id);
+
             collectionManager.update(id, newRoute);
-        } catch (NumberFormatException e) {
-            System.out.println("Ошибка: неверный формат числа.");
         } catch (Exception e) {
-            System.out.println("Ошибка при обновлении: " + e.getMessage());
+            System.out.println("Не удалось обновить маршрут: " + e.getMessage());
+        } finally {
+            scriptScanner = null;
         }
     }
 
@@ -76,7 +62,5 @@ public class UpdateCommand implements Command {
         return "обновить значение элемента коллекции, id которого равен заданному";
     }
 
-    public void setArgument(long id) {
-        this.id = id;
-    }
+
 }
