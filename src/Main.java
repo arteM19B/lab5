@@ -31,6 +31,7 @@ public class Main {
         RemoveLastCommand removeLastCommand = new RemoveLastCommand(collectionManager);
         SortCommand sortCommand = new SortCommand(collectionManager);
         SaveCommand saveCommand = new SaveCommand(collectionManager);
+        ExitCommand exitCommand = new ExitCommand();
 
         allCommands.put("add", addCommand);
         allCommands.put("info", infoCommand);
@@ -41,6 +42,7 @@ public class Main {
         allCommands.put("remove_last", removeLastCommand);
         allCommands.put("sort", sortCommand);
         allCommands.put("save", saveCommand);
+        allCommands.put("exit", exitCommand);
 
 
         HelpCommand helpCommand = new HelpCommand(allCommands);
@@ -55,6 +57,7 @@ public class Main {
         invoker.registerCommand("remove_last", removeLastCommand);
         invoker.registerCommand("sort", sortCommand);
         invoker.registerCommand("save", saveCommand);
+        invoker.registerCommand("exit", exitCommand);
 
         while (true) {
             System.out.print("> ");
