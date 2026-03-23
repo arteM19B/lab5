@@ -36,6 +36,25 @@ public class Route implements Comparable<Route>{
         return Long.compare(this.distance, o.distance);
     }
 
+    public String toXML() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("  <route>\n");
+        sb.append("    <id>").append(id).append("</id>\n");
+        sb.append("    <name>").append(name).append("</name>\n");
+        sb.append("    <coordinates>\n");
+        sb.append("      <x>").append(coordinates.getX()).append("</x>\n");
+        sb.append("      <y>").append(coordinates.getY()).append("</y>\n");
+        sb.append("    </coordinates>\n");
+        sb.append("    <creationDate>").append(creationDate).append("</creationDate>\n");
+
+        sb.append("    <from>").append(from != null ? from.toXML() : "null").append("</from>\n");
+        sb.append("    <to>").append(to != null ? to.toXML() : "null").append("</to>\n");
+
+        sb.append("    <distance>").append(distance).append("</distance>\n");
+        sb.append("  </route>");
+        return sb.toString();
+    }
+
     public long getId() {
         return id;
     }

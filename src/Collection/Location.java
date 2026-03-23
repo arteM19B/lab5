@@ -22,6 +22,10 @@ public class Location {
     }
     public String getName() { return name;}
 
+    public String toXML() {
+        return name + "(" + x + "," + y + ")";
+    }
+
     @Override
     public String toString() {
         return(name + "(" + x + ",  " + y + ")");

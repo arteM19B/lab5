@@ -8,9 +8,17 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        CollectionManager collectionManager = new CollectionManager();
+        if (args.length == 0) {
+            System.out.println("Ошибка: укажите имя файла как аргумент командной строки!");
+            System.exit(1);
+        }
+
+        String fileName = args[0];
+        CollectionManager collectionManager = new CollectionManager(fileName);
+
+
         Invoker invoker = new Invoker();
+        Scanner scanner = new Scanner(System.in);
 
         Map<String, Command> allCommands = new HashMap<>();
 
@@ -22,6 +30,7 @@ public class Main {
         ClearCommand clearCommand = new ClearCommand(collectionManager);
         RemoveLastCommand removeLastCommand = new RemoveLastCommand(collectionManager);
         SortCommand sortCommand = new SortCommand(collectionManager);
+        SaveCommand saveCommand = new SaveCommand(collectionManager);
 
         allCommands.put("add", addCommand);
         allCommands.put("info", infoCommand);
@@ -31,6 +40,7 @@ public class Main {
         allCommands.put("clear", clearCommand);
         allCommands.put("remove_last", removeLastCommand);
         allCommands.put("sort", sortCommand);
+        allCommands.put("save", saveCommand);
 
 
         HelpCommand helpCommand = new HelpCommand(allCommands);
@@ -44,6 +54,7 @@ public class Main {
         invoker.registerCommand("clear", clearCommand);
         invoker.registerCommand("remove_last", removeLastCommand);
         invoker.registerCommand("sort", sortCommand);
+        invoker.registerCommand("save", saveCommand);
 
         while (true) {
             System.out.print("> ");

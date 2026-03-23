@@ -2,6 +2,9 @@ package CollectionManager;
 
 import Collection.Route;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -79,8 +82,28 @@ public class CollectionManager {
         }
         return null;
     }
+
     public void sort() {
         Collections.sort(collection);
         System.out.println("Коллекция отсортирована по естественному порядку (distance)");
     }
+
+    public void save() {
+        if (fileName == null || fileName.isEmpty()) {
+            System.out.println("Имя файла не найдено");
+            return;
+        }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+            writer.write("<routes>\n");
+            for (Route route : collection) {
+                writer.write(route.toXML() + "\n");
+            }
+            writer.write("</routes>\n");
+            System.out.println("Коллекция успешно сохранена в " + fileName);
+        } catch (IOException e) {
+            System.out.println("Ошибка сохранения: " + e.getMessage());
+        }
+    }
+
 }
