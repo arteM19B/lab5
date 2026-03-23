@@ -3,7 +3,7 @@ package Collection;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class Route {
+public class Route implements Comparable<Route>{
     private long id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
@@ -22,7 +22,6 @@ public class Route {
         if (name == null) {
             throw new IllegalArgumentException("name can't be null");
         }
-
 //        this.id = ;
         this.coordinates = coordinates;
         this.name = name;
@@ -31,6 +30,11 @@ public class Route {
         this.to = to;
         this.distance = distance;
         this.id = IdGenerator.next();
+    }
+
+    @Override
+    public int compareTo(Route o) {
+        return Long.compare(this.distance, o.distance);
     }
 
     public long getId() {

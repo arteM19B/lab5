@@ -3,6 +3,7 @@ package CollectionManager;
 import Collection.Route;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.LinkedList;
 
 public class CollectionManager {
@@ -78,5 +79,8 @@ public class CollectionManager {
         }
         return null;
     }
-//    public void sort() { Collections.sort(collection);}
+    public void sort() {
+        Collections.sort(collection);
+        System.out.println("Коллекция отсортирована по естественному порядку (distance)");
+    }
 }

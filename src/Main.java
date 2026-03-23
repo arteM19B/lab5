@@ -21,6 +21,7 @@ public class Main {
         RemoveIdCommand removeIdCommand = new RemoveIdCommand(collectionManager);
         ClearCommand clearCommand = new ClearCommand(collectionManager);
         RemoveLastCommand removeLastCommand = new RemoveLastCommand(collectionManager);
+        SortCommand sortCommand = new SortCommand(collectionManager);
 
         allCommands.put("add", addCommand);
         allCommands.put("info", infoCommand);
@@ -29,6 +30,7 @@ public class Main {
         allCommands.put("remove_by_id", removeIdCommand);
         allCommands.put("clear", clearCommand);
         allCommands.put("remove_last", removeLastCommand);
+        allCommands.put("sort", sortCommand);
 
 
         HelpCommand helpCommand = new HelpCommand(allCommands);
@@ -41,6 +43,7 @@ public class Main {
         invoker.registerCommand("remove_by_id", removeIdCommand);
         invoker.registerCommand("clear", clearCommand);
         invoker.registerCommand("remove_last", removeLastCommand);
+        invoker.registerCommand("sort", sortCommand);
 
         while (true) {
             System.out.print("> ");
