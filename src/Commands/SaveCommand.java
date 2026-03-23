@@ -13,4 +13,9 @@ public class SaveCommand implements Command {
     public void execute() {
         collectionManager.save();
     }
+
+    @Override
+    public String toString() {
+        return "сохранить коллекцию в файл";
+    }
 }
