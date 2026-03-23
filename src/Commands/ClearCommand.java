@@ -13,4 +13,10 @@ public class ClearCommand implements Command {
     public void execute() {
         collectionManager.clear();
     }
+
+    @Override
+    public String toString() {
+        return "очистить коллекцию";
+    }
+
 }
