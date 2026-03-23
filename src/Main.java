@@ -32,6 +32,8 @@ public class Main {
         SortCommand sortCommand = new SortCommand(collectionManager);
         SaveCommand saveCommand = new SaveCommand(collectionManager);
         ExitCommand exitCommand = new ExitCommand();
+        ExecuteScriptCommand executeScriptCommand = new ExecuteScriptCommand(invoker);
+
 
         allCommands.put("add", addCommand);
         allCommands.put("info", infoCommand);
@@ -43,6 +45,7 @@ public class Main {
         allCommands.put("sort", sortCommand);
         allCommands.put("save", saveCommand);
         allCommands.put("exit", exitCommand);
+        allCommands.put("execute_script", executeScriptCommand);
 
 
         HelpCommand helpCommand = new HelpCommand(allCommands);
@@ -58,6 +61,7 @@ public class Main {
         invoker.registerCommand("sort", sortCommand);
         invoker.registerCommand("save", saveCommand);
         invoker.registerCommand("exit", exitCommand);
+        invoker.registerCommand("execute_script", executeScriptCommand);
 
         while (true) {
             System.out.print("> ");
@@ -86,6 +90,9 @@ public class Main {
                         System.out.println("Неверный формат ID");
                         continue;
                     }
+                } else if (command instanceof ExecuteScriptCommand) {
+                    String argument = parts[1];
+                    ((ExecuteScriptCommand) command).setArgument(argument);   // ← вот это важно добавить!
                 }
                 command.execute();
             }
