@@ -97,8 +97,8 @@ public class Main {
                     String argument = parts[1];
                     ((ExecuteScriptCommand) command).setArgument(argument);   // ← вот это важно добавить!
                 } else if (command instanceof RemoveAtCommand) {
-                    int index = Integer.parseInt(parts[1]);
-                    ((RemoveAtCommand) command).setIndex(index);   // ← вот это важно добавить!
+                    int argument = Integer.parseInt(parts[1]);
+                    ((RemoveAtCommand) command).setArgument(argument);   // ← вот это важно добавить!
                 }
                 command.execute();
             }
