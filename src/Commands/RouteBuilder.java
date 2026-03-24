@@ -27,7 +27,7 @@ public class RouteBuilder {
 
     private String readName() throws Exception {
         while (true) {
-            printConsole("Введите имя маршрута (нужно хоть что-то ввести)");
+            printConsole("Введите имя маршрута (нужно хоть что-то ввести): ");
             String input = scanner.nextLine().trim();
             if (input.isEmpty()) {
                 printError("Имя не может быть пустым");
