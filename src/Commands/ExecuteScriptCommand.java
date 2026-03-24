@@ -77,6 +77,8 @@ public class ExecuteScriptCommand implements Command {
                         ((RemoveIdCommand) command).setArgument(Long.parseLong(arg));
                     } else if (command instanceof RemoveAtCommand) {
                         ((RemoveAtCommand) command).setArgument(Integer.parseInt(arg));
+                    } else if (command instanceof RemoveAllByDistanceCommand) {
+                        ((RemoveAllByDistanceCommand) command).setArgument(Integer.parseInt(arg));
                     } else if (command instanceof ExecuteScriptCommand) {
                         ((ExecuteScriptCommand) command).setArgument(arg);
                     }

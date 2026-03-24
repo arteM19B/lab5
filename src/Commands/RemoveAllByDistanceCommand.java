@@ -1,0 +1,37 @@
+package Commands;
+
+import CollectionManager.CollectionManager;
+
+public class RemoveAllByDistanceCommand implements Command {
+
+    private final CollectionManager collectionManager;
+    private long distance = -1;
+
+    public RemoveAllByDistanceCommand(CollectionManager collectionManager) {
+        this.collectionManager = collectionManager;
+    }
+
+    public void setArgument(long distance) {
+        this.distance = distance;
+    }
+
+    @Override
+    public void execute() {
+        if (distance <= 1) {
+            System.out.println("Ошибка: укажите корректное расстояние (>1)");
+            return;
+        }
+        int count = collectionManager.removeAllByDistance(distance);
+
+        if (count == 0) {
+            System.out.println("Дорог с таким расстоянием не найдено");
+        } else {
+            System.out.println("Удалено " + count + " дорог с расстоянием " + distance);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "удалить из коллекции все элементы, значение поля distance которого эквивалентно заданному";
+    }
+}

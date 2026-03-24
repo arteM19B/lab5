@@ -97,6 +97,12 @@ public class CollectionManager {
         System.out.println("Коллекция отсортирована по естественному порядку (distance)");
     }
 
+    public int removeAllByDistance(long distance) {
+        int count = (int) collection.stream().filter(route -> route.getDistance() == distance).count();
+        collection.removeIf(route -> route.getDistance() == distance);
+        return count;
+    }
+
     public void save() {
         if (fileName == null || fileName.isEmpty()) {
             System.out.println("Имя файла не найдено");

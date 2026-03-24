@@ -34,6 +34,7 @@ public class Main {
         ExitCommand exitCommand = new ExitCommand();
         ExecuteScriptCommand executeScriptCommand = new ExecuteScriptCommand(invoker);
         RemoveAtCommand removeAtCommand = new RemoveAtCommand(collectionManager);
+        RemoveAllByDistanceCommand removeAllByDistanceCommand = new RemoveAllByDistanceCommand(collectionManager);
 
 
         allCommands.put("add", addCommand);
@@ -48,6 +49,7 @@ public class Main {
         allCommands.put("exit", exitCommand);
         allCommands.put("execute_script", executeScriptCommand);
         allCommands.put("remove_at", removeLastCommand);
+        allCommands.put("remove_all", removeAllByDistanceCommand);
 
 
         HelpCommand helpCommand = new HelpCommand(allCommands);
@@ -65,6 +67,7 @@ public class Main {
         invoker.registerCommand("exit", exitCommand);
         invoker.registerCommand("execute_script", executeScriptCommand);
         invoker.registerCommand("remove_at", removeAtCommand);
+        invoker.registerCommand("remove_all_by_distance", removeAllByDistanceCommand);
 
         while (true) {
             System.out.print("> ");
@@ -99,6 +102,14 @@ public class Main {
                 } else if (command instanceof RemoveAtCommand) {
                     int argument = Integer.parseInt(parts[1]);
                     ((RemoveAtCommand) command).setArgument(argument);
+                } else if (command instanceof RemoveAllByDistanceCommand && parts.length > 1) {
+                    try {
+                        long distance = Long.parseLong(parts[1].trim());
+                        ((RemoveAllByDistanceCommand) command).setArgument(distance);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Неверный формат distance");
+                        continue;
+                    }
                 }
                 command.execute();
             }
