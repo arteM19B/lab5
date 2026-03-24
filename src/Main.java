@@ -15,6 +15,7 @@ public class Main {
 
         String fileName = args[0];
         CollectionManager collectionManager = new CollectionManager(fileName);
+        collectionManager.load();
 
 
         Invoker invoker = new Invoker();

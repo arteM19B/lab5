@@ -23,7 +23,10 @@ public class Location {
     public String getName() { return name;}
 
     public String toXML() {
-        return name + "(" + x + "," + y + ")";
+        if (name == null) {
+            return "null";
+        }
+        return name + "(" + x + ", " + y + ")";
     }
 
     @Override

@@ -65,10 +65,8 @@ public class Route implements Comparable<Route>{
         sb.append("      <y>").append(coordinates.getY()).append("</y>\n");
         sb.append("    </coordinates>\n");
         sb.append("    <creationDate>").append(creationDate).append("</creationDate>\n");
-
         sb.append("    <from>").append(from != null ? from.toXML() : "null").append("</from>\n");
         sb.append("    <to>").append(to != null ? to.toXML() : "null").append("</to>\n");
-
         sb.append("    <distance>").append(distance).append("</distance>\n");
         sb.append("  </route>");
         return sb.toString();

@@ -1,18 +1,25 @@
 package CollectionManager;
 
+import Collection.Coordinates;
+import Collection.IdGenerator;
+import Collection.Location;
 import Collection.Route;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 public class CollectionManager {
     private LinkedList<Route> collection = new LinkedList<>();
     private LocalDateTime initializationTime;
     private String fileName;
+    Scanner scanner;
 
     public CollectionManager(String fileName) {
         this.initializationTime = LocalDateTime.now();
@@ -135,6 +142,152 @@ public class CollectionManager {
         } catch (IOException e) {
             System.out.println("Ошибка сохранения: " + e.getMessage());
         }
+    }
+
+    public void load() {
+        if (fileName == null || fileName.isEmpty()) {
+            System.out.println("Имя файла не задано.");
+            return;
+        }
+
+        File file = new File(fileName);
+        if (!file.exists()) {
+            System.out.println("Файл " + fileName + " не найден. Коллекция пустая.");
+            return;
+        }
+
+        collection.clear();
+        long maxId = 0;
+
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine().trim();
+
+                if (line.equals("<route>")) {
+                    Route route = parseRoute(scanner);
+                    if (route != null) {
+                        collection.add(route);
+                        if (route.getId() > maxId) {
+                            maxId = route.getId();
+                        }
+                    }
+                }
+            }
+
+            IdGenerator.setCounter(maxId);
+            System.out.println("Загружено " + collection.size() + " элементов из " + fileName);
+
+        } catch (Exception e) {
+            System.out.println("Ошибка загрузки XML: " + e.getMessage());
+            collection.clear();
+        }
+    }
+
+    private Route parseRoute(Scanner scanner) {
+        long id = 0;
+        String name = null;
+        Coordinates coordinates = null;
+        LocalDate creationDate = LocalDate.now();
+        Location from = null;
+        Location to = null;
+        long distance = 0;
+
+        try {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine().trim();
+
+                if (line.equals("</route>")) {
+                    break;
+                }
+
+                if (line.startsWith("<id>")) {
+                    id = Long.parseLong(getTagValue(line));
+                } else if (line.startsWith("<name>")) {
+                    name = getTagValue(line);
+                } else if (line.startsWith("<creationDate>")) {
+                    creationDate = LocalDate.parse(getTagValue(line));
+                } else if (line.startsWith("<distance>")) {
+                    distance = Long.parseLong(getTagValue(line));
+                } else if (line.equals("<coordinates>")) {
+                    coordinates = parseCoordinates(scanner);
+                } else if (line.startsWith("<from>")) {
+                    from = parseLocation(line, "</from>");
+                } else if (line.startsWith("<to>")) {
+                    to = parseLocation(line, "</to>");
+                }
+            }
+
+            if (name == null || coordinates == null || distance <= 1) {
+                System.out.println("Пропущен некорректный маршрут (id=" + id + ")");
+                return null;
+            }
+
+            Route route = new Route(name, coordinates, from, to, distance);
+            route.setId(id);
+            return route;
+
+        } catch (Exception e) {
+            System.out.println("Ошибка парсинга маршрута: " + e.getMessage());
+            return null;
+        }
+    }
+
+    private Coordinates parseCoordinates(Scanner scanner) {
+        Long x = null;
+        Integer y = null;
+
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine().trim();
+            if (line.equals("</coordinates>")) break;
+
+            if (line.startsWith("<x>")) x = Long.parseLong(getTagValue(line));
+            if (line.startsWith("<y>")) y = Integer.parseInt(getTagValue(line));
+        }
+
+        if (x == null || y == null) return null;
+        return new Coordinates(x, y);
+    }
+
+
+    private Location parseLocation(String line, String endTag) {
+        String fullText = getTagValue(line);
+
+        if (fullText.isEmpty() || fullText.equalsIgnoreCase("null")) {
+            return null;
+        }
+
+        if (fullText.contains("(") && fullText.contains(")")) {
+            try {
+                int open = fullText.lastIndexOf('(');
+                int close = fullText.lastIndexOf(')');
+
+                String name = fullText.substring(0, open).trim();
+                String coordsStr = fullText.substring(open + 1, close).trim();
+
+                String[] coords = coordsStr.split(",");
+                if (coords.length != 2) {
+                    System.out.println("Неверный формат координат Location: " + fullText);
+                    return null;
+                }
+
+                float x = Float.parseFloat(coords[0].trim());
+                double y = Double.parseDouble(coords[1].trim());
+
+                if (name.isEmpty()) name = null;
+
+                return new Location(x, y, name);
+
+            } catch (Exception e) {
+                System.out.println("Ошибка при парсинге Location: " + fullText);
+                System.out.println("Причина: " + e.getMessage());
+            }
+        }
+
+        System.out.println("Неизвестный формат Location: " + fullText);
+        return null;
+    }
+    private String getTagValue(String line) {
+        return line.replaceAll("<[^>]+>", "").trim();
     }
 
 }
