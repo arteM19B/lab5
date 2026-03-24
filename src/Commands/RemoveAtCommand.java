@@ -10,7 +10,7 @@ public class RemoveAtCommand implements Command {
         this.collectionManager = collectionManager;
     }
 
-    public void setIndex(int index){
+    public void setArgument(int index){
         this.index = index;
     }
 
