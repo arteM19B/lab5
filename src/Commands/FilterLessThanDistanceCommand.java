@@ -1,0 +1,37 @@
+package Commands;
+
+import CollectionManager.CollectionManager;
+
+public class FilterLessThanDistanceCommand implements Command {
+    private final CollectionManager collectionManager;
+    private long distance = -1;
+
+    public FilterLessThanDistanceCommand(CollectionManager collectionManager) {
+        this.collectionManager = collectionManager;
+    }
+
+    public void setArgument(long distance) {
+        this.distance = distance;
+    }
+
+    @Override
+    public void execute() {
+        if (distance <= 1) {
+            System.out.println("Ошибка: укажите корректное расстояние (>1)");
+            return;
+        }
+
+        int count = collectionManager.filterLessThanDistance(distance);
+
+        if (count == 0) {
+            System.out.println("Дорог с расстоянием, меньшим " + distance + " не найдено");
+        } else {
+            System.out.println("Выведено " + count + " дорог");
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "вывести элементы, значение поля distance которых меньше заданного";
+    }
+}

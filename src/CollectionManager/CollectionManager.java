@@ -103,6 +103,22 @@ public class CollectionManager {
         return count;
     }
 
+    public int countGreaterThanDistance(long distance) {
+        int count = (int) collection.stream().filter(route -> route.getDistance() > distance).count();
+        return count;
+    }
+
+    public int filterLessThanDistance(long distance) {
+        int count = 0;
+        for (Route route : collection) {
+            if (route.getDistance() < distance) {
+                count++;
+                System.out.println(route);
+            }
+        }
+        return count;
+    }
+
     public void save() {
         if (fileName == null || fileName.isEmpty()) {
             System.out.println("Имя файла не найдено");

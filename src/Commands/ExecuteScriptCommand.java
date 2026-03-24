@@ -78,7 +78,11 @@ public class ExecuteScriptCommand implements Command {
                     } else if (command instanceof RemoveAtCommand) {
                         ((RemoveAtCommand) command).setArgument(Integer.parseInt(arg));
                     } else if (command instanceof RemoveAllByDistanceCommand) {
-                        ((RemoveAllByDistanceCommand) command).setArgument(Integer.parseInt(arg));
+                        ((RemoveAllByDistanceCommand) command).setArgument(Long.parseLong(arg));
+                    } else if (command instanceof CounGreaterThanDistanceCommand) {
+                        ((CounGreaterThanDistanceCommand) command).setArgument(Long.parseLong(arg));
+                    } else if (command instanceof FilterLessThanDistanceCommand) {
+                        ((FilterLessThanDistanceCommand) command).setArgument(Long.parseLong(arg));
                     } else if (command instanceof ExecuteScriptCommand) {
                         ((ExecuteScriptCommand) command).setArgument(arg);
                     }
