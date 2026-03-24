@@ -95,10 +95,10 @@ public class Main {
                     }
                 } else if (command instanceof ExecuteScriptCommand) {
                     String argument = parts[1];
-                    ((ExecuteScriptCommand) command).setArgument(argument);   // ← вот это важно добавить!
+                    ((ExecuteScriptCommand) command).setArgument(argument);
                 } else if (command instanceof RemoveAtCommand) {
                     int argument = Integer.parseInt(parts[1]);
-                    ((RemoveAtCommand) command).setArgument(argument);   // ← вот это важно добавить!
+                    ((RemoveAtCommand) command).setArgument(argument);
                 }
                 command.execute();
             }
