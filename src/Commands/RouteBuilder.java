@@ -21,7 +21,7 @@ public class RouteBuilder {
         this.isConsole = isConsole;
     }
 
-    public Route build() throws Exception{
+    public Route build() {
         String name = readName();
         Coordinates coordinates = readCoordinates();
         Location from = readLocation("откуда (from)", true);
