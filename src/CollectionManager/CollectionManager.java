@@ -74,7 +74,12 @@ public class CollectionManager {
     }
 
     public void remove_last() {
-        collection.removeLast();
+        if  (collection.isEmpty()) {
+            System.out.println("Коллекция пуста, удалять нечего");
+        } else {
+            collection.removeLast();
+            System.out.println("Последний элемент коллекции удалён");
+        }
     }
 
     public int  size() {
