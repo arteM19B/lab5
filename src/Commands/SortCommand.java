@@ -21,4 +21,9 @@ public class SortCommand implements Command {
     public void execute() {
         collectionManager.sort();
     }
+
+    @Override
+    public String toString() {
+        return "отсортировать коллекцию в естественном порядке";
+    }
 }

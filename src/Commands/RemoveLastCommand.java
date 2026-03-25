@@ -19,4 +19,9 @@ public class RemoveLastCommand implements Command {
     public void execute() {
         collectionManager.remove_last();
     }
+
+    @Override
+    public String toString() {
+        return "удалить последний элемент из коллекции";
+    }
 }

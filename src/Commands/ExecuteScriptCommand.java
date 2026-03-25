@@ -44,7 +44,6 @@ public class ExecuteScriptCommand implements Command {
             normalizedPath = file.getAbsolutePath();
         }
 
-        // Проверка на рекурсию (циклический вызов)
         if (executingScripts.contains(normalizedPath)) {
             System.out.println("Ошибка: обнаружен рекурсивный (циклический) вызов скрипта!");
             System.out.println("Файл уже выполняется: " + fileName);
@@ -53,14 +52,13 @@ public class ExecuteScriptCommand implements Command {
 
         System.out.println("Выполняется скрипт: " + fileName);
 
-        executingScripts.add(normalizedPath);   // Добавляем
+        executingScripts.add(normalizedPath);
 
         try (Scanner fileScanner = new Scanner(file)) {
 
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine().trim();
 
-                // пропускаем комменты
                 if (line.isEmpty() || line.startsWith("#") || line.startsWith("//")) {
                     continue;
                 }
@@ -115,5 +113,10 @@ public class ExecuteScriptCommand implements Command {
         } finally {
             executingScripts.remove(normalizedPath);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "считать и исполнить скрипт из указанного файла. В скрипте содержатся команды в таком же виде, в котором их вводит пользователь в интерактивном режиме.";
     }
 }

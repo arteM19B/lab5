@@ -28,4 +28,9 @@ public class RemoveAtCommand implements Command {
         }
         collectionManager.removeAt(index);
     }
+
+    @Override
+    public String toString() {
+        return "удалить элемент, находящийся в заданной позиции коллекции (index)";
+    }
 }
