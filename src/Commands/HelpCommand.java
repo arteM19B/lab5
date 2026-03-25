@@ -1,6 +1,12 @@
 package Commands;
 import java.util.Map;
-
+/**
+ * Команда вывода справки по доступным командам.
+ * Выводит список всех зарегистрированных команд и их описания.
+ *
+ * @author artem_bahetkin
+ * @version 1.0
+ */
 public class HelpCommand implements Command {
     private Map<String, Command> commands;
     public HelpCommand(Map<String, Command> commands) {

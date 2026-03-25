@@ -4,7 +4,13 @@ import Commands.Command;
 
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * Класс-инвокер, реализующий паттерн Command.
+ * Хранит зарегистрированные команды и обеспечивает их поиск и выполнение по имени.
+ *
+ * @author arten_bahetkin
+ * @version 1.0
+ */
 public class Invoker {
     private Map<String, Command> commandsMap = new HashMap<>();
     public void registerCommand(String name, Command command) {

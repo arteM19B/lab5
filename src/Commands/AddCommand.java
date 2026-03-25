@@ -7,7 +7,13 @@ import CollectionManager.CollectionManager;
 
 
 import java.util.Scanner;
-
+/**
+ * Команда добавления нового элемента в коллекцию.
+ * Добавляет новый маршрут, запрашивая все необходимые поля у пользователя.
+ *
+ * @author artem_bahetkin
+ * @version 1.0
+ */
 public class AddCommand  implements Command{
     private final CollectionManager collectionManager;
     private final Scanner scanner;

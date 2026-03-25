@@ -7,7 +7,13 @@ import java.io.FileNotFoundException;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
-
+/**
+ * Команда выполнения скрипта.
+ * Считывает и последовательно выполняет команды из указанного файла.
+ *
+ * @author artem_bahetkin
+ * @version 1.0
+ */
 public class ExecuteScriptCommand implements Command {
 
     private final Invoker invoker;

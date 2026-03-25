@@ -1,5 +1,11 @@
 package Collection;
-
+/**
+ * Класс, представляющий координаты точки в пространстве.
+ * Используется в объектах {@link Route}.
+ *
+ * @author artem_bahetkin
+ * @version 1.0
+ */
 public class Coordinates {
     private Long x; //Значение поля должно быть больше -248, Поле не может быть null
     private Integer y; //Значение поля должно быть больше -448, Поле не может быть null

@@ -1,9 +1,15 @@
 package Commands;
 
 import CollectionManager.CollectionManager;
-
+/**
+ * Команда вывода информации о коллекции.
+ * Выводит тип коллекции, дату инициализации, количество элементов и имя файла.
+ *
+ * @author artem_bahetkin
+ * @version 1.0
+ */
 public class InfoCommand implements Command {
-    private CollectionManager collectionManager;
+    private final CollectionManager collectionManager;
 
     public InfoCommand(CollectionManager collectionManager) {
         this.collectionManager = collectionManager;

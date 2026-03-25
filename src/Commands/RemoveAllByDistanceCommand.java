@@ -1,7 +1,13 @@
 package Commands;
 
 import CollectionManager.CollectionManager;
-
+/**
+ * Команда удаления всех элементов, у которых значение поля distance
+ * равно заданному.
+ *
+ * @author artem_bahetkin
+ * @version 1.0
+ */
 public class RemoveAllByDistanceCommand implements Command {
 
     private final CollectionManager collectionManager;

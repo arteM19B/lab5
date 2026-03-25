@@ -1,7 +1,13 @@
 package Commands;
 
 import CollectionManager.CollectionManager;
-
+/**
+ * Команда фильтрации и вывода элементов, у которых значение поля distance
+ * меньше заданного.
+ *
+ * @author artem_bahetkin
+ * @version 1.0
+ */
 public class FilterLessThanDistanceCommand implements Command {
     private final CollectionManager collectionManager;
     private long distance = -1;

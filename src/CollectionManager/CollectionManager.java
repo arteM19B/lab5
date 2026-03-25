@@ -14,7 +14,14 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Scanner;
-
+/**
+ * Основной класс управления коллекцией маршрутов.
+ * Предоставляет функциональность для добавления, удаления, сортировки,
+ * фильтрации, сохранения и загрузки коллекции из XML-файла.
+ *
+ * @author artem_bahetkin
+ * @version 1.0
+ */
 public class CollectionManager {
     private LinkedList<Route> collection = new LinkedList<>();
     private LocalDateTime initializationTime;

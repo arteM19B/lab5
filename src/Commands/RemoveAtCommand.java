@@ -1,7 +1,13 @@
 package Commands;
 
 import CollectionManager.CollectionManager;
-
+/**
+ * Команда удаления элемента коллекции по индексу.
+ * Удаляет маршрут, находящийся на указанной позиции в коллекции.
+ *
+ * @author artem_bahetkin
+ * @version 1.0
+ */
 public class RemoveAtCommand implements Command {
     private final CollectionManager collectionManager;
     private int index = -1;

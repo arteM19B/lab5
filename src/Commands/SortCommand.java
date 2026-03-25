@@ -2,7 +2,13 @@ package Commands;
 
 import Collection.Route;
 import CollectionManager.CollectionManager;
-
+/**
+ * Команда сортировки коллекции.
+ * Сортирует коллекцию маршрутов в естественном порядке (по расстоянию).
+ *
+ * @author artem_bahetkin
+ * @version 1.0
+ */
 public class SortCommand implements Command {
     private CollectionManager collectionManager;
 

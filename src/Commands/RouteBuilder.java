@@ -5,7 +5,13 @@ import Collection.Location;
 import Collection.Route;
 
 import java.util.Scanner;
-
+/**
+ * Класс-помощник для интерактивного и скриптового создания объектов {@link Route}.
+ * Отвечает за чтение данных от пользователя с валидацией вводимых значений.
+ *
+ * @author artem_bahetkin
+ * @version 1.0
+ */
 public class RouteBuilder {
     private final Scanner scanner;
     private final boolean isConsole;

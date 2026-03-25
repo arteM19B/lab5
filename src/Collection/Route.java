@@ -2,7 +2,14 @@ package Collection;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
+/**
+ * Класс, представляющий маршрут в коллекции.
+ * Содержит информацию о маршруте: название, координаты, начальную и конечную точки,
+ * расстояние и дату создания.
+ *
+ * @author artem_bahetkin
+ * @version 1.0
+ */
 public class Route implements Comparable<Route>{
     private long id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой

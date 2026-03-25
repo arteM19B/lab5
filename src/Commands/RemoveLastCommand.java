@@ -1,7 +1,13 @@
 package Commands;
 
 import CollectionManager.CollectionManager;
-
+/**
+ * Команда удаления последнего элемента коллекции.
+ * Удаляет маршрут, находящийся в конце коллекции.
+ *
+ * @author artem_bahetkin
+ * @version 1.0
+ */
 public class RemoveLastCommand implements Command {
     private final CollectionManager collectionManager;
 

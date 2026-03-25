@@ -1,5 +1,12 @@
 package Collection;
-
+/**
+ * Класс, представляющий географическую локацию (точку).
+ * Может использоваться как начальная (from) или конечная (to) точка маршрута.
+ * Поле name может быть null.
+ *
+ * @author artem_bahetkin
+ * @version 1.0
+ */
 public class Location {
     private Float x; //Поле не может быть null
     private double y;

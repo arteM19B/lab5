@@ -3,7 +3,13 @@ package Commands;
 import CollectionManager.CollectionManager;
 
 import java.util.Collection;
-
+/**
+ * Команда подсчёта количества элементов, у которых значение поля distance
+ * больше заданного.
+ *
+ * @author artem_bahetkin
+ * @version 1.0
+ */
 public class CounGreaterThanDistanceCommand implements Command {
 
     private final CollectionManager collectionManager;

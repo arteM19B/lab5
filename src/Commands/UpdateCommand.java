@@ -3,7 +3,13 @@ package Commands;
 import CollectionManager.CollectionManager;
 import Collection.*;
 import java.util.Scanner;
-
+/**
+ * Команда обновления существующего элемента коллекции по его ID.
+ * Заменяет маршрут с заданным идентификатором на новый.
+ *
+ * @author artem_bahetkin
+ * @version 1.0
+ */
 public class UpdateCommand implements Command {
     private final CollectionManager collectionManager;
     private long id = -1;

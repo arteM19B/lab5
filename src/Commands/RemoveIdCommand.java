@@ -4,7 +4,13 @@ import Collection.Route;
 import CollectionManager.CollectionManager;
 
 import java.util.Iterator;
-
+/**
+ * Команда удаления элемента коллекции по его ID.
+ * Удаляет маршрут с указанным идентификатором.
+ *
+ * @author artem_bahetkin
+ * @version 1.0
+ */
 public class RemoveIdCommand implements Command {
     private CollectionManager collectionManager;
     private long id;
