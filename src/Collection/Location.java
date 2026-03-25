@@ -8,9 +8,9 @@ package Collection;
  * @version 1.0
  */
 public class Location {
-    private Float x; //Поле не может быть null
-    private double y;
-    private String name; //Строка не может быть пустой, Поле может быть null
+    private final Float x; //Поле не может быть null
+    private final double y;
+    private final String name; //Строка не может быть пустой, Поле может быть null
 
     public Location(Float x, double y, String name) {
         if (x == null) {
@@ -21,12 +21,6 @@ public class Location {
         this.name = name;
     }
 
-    public Float getX() {
-        return x;
-    }
-    public double getY() {
-        return y;
-    }
     public String getName() { return name;}
 
     public String toXML() {

@@ -13,10 +13,6 @@ public class IdGenerator {
         return ++counter;
     }
 
-    public static long getCounter() {
-        return counter;
-    }
-
     public static void setCounter(long value) {
         counter = value;
     }

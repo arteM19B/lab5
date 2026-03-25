@@ -31,7 +31,7 @@ public class RouteBuilder {
         return new Route(name, coordinates, from, to, distance);
     }
 
-    private String readName() throws Exception {
+    private String readName() {
         while (true) {
             printConsole("Введите имя маршрута (нужно хоть что-то ввести): ");
             String input = scanner.nextLine().trim();
@@ -43,7 +43,7 @@ public class RouteBuilder {
         }
     }
 
-    private Coordinates readCoordinates() throws Exception {
+    private Coordinates readCoordinates() {
         while (true) {
             printConsole("Координата X (Long, > -248): ");
             String xStr = scanner.nextLine().trim();
@@ -70,7 +70,7 @@ public class RouteBuilder {
         }
     }
 
-    private long readDistance() throws Exception {
+    private long readDistance() {
         while (true) {
             printConsole("Расстояние (long, > 1): ");
             String input = scanner.nextLine().trim();
@@ -87,7 +87,7 @@ public class RouteBuilder {
         }
     }
 
-    private Location readLocation(String promptText, boolean canBeNull) throws Exception {
+    private Location readLocation(String promptText, boolean canBeNull) {
         printConsole("Локация " + promptText + (canBeNull ? " (Enter для null)" : "") + "\n");
 
         printConsole("  Введите X Y (Float double) или Enter для null: ");

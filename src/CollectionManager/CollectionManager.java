@@ -23,10 +23,9 @@ import java.util.Scanner;
  * @version 1.0
  */
 public class CollectionManager {
-    private LinkedList<Route> collection = new LinkedList<>();
-    private LocalDateTime initializationTime;
+    private final LinkedList<Route> collection = new LinkedList<>();
+    private final LocalDateTime initializationTime;
     private String fileName;
-    Scanner scanner;
 
     public CollectionManager(String fileName) {
         this.initializationTime = LocalDateTime.now();
@@ -123,8 +122,7 @@ public class CollectionManager {
     }
 
     public int countGreaterThanDistance(long distance) {
-        int count = (int) collection.stream().filter(route -> route.getDistance() > distance).count();
-        return count;
+        return (int) collection.stream().filter(route -> route.getDistance() > distance).count();
     }
 
     public int filterLessThanDistance(long distance) {
@@ -199,7 +197,7 @@ public class CollectionManager {
         long id = 0;
         String name = null;
         Coordinates coordinates = null;
-        LocalDate creationDate = LocalDate.now();
+        LocalDate creationDate;
         Location from = null;
         Location to = null;
         long distance = 0;
@@ -223,9 +221,9 @@ public class CollectionManager {
                 } else if (line.equals("<coordinates>")) {
                     coordinates = parseCoordinates(scanner);
                 } else if (line.startsWith("<from>")) {
-                    from = parseLocation(line, "</from>");
+                    from = parseLocation(line);
                 } else if (line.startsWith("<to>")) {
-                    to = parseLocation(line, "</to>");
+                    to = parseLocation(line);
                 }
             }
 
@@ -261,7 +259,7 @@ public class CollectionManager {
     }
 
 
-    private Location parseLocation(String line, String endTag) {
+    private Location parseLocation(String line) {
         String fullText = getTagValue(line);
 
         if (fullText.isEmpty() || fullText.equalsIgnoreCase("null")) {

@@ -12,12 +12,12 @@ import java.time.LocalDateTime;
  */
 public class Route implements Comparable<Route>{
     private long id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
-    private String name; //Поле не может быть null, Строка не может быть пустой
-    private Coordinates coordinates; //Поле не может быть null
-    private java.time.LocalDate creationDate = LocalDate.now(); //Поле не может быть null, Значение этого поля должно генерироваться автоматически
-    private Location from; //Поле может быть null
-    private Location to; //Поле может быть null
-    private long distance; //Значение поля должно быть больше 1
+    private final String name; //Поле не может быть null, Строка не может быть пустой
+    private final Coordinates coordinates; //Поле не может быть null
+    private final java.time.LocalDate creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    private final Location from; //Поле может быть null
+    private final Location to; //Поле может быть null
+    private final long distance; //Значение поля должно быть больше 1
 
     public Route(long id, String name, Coordinates coordinates, Location from, Location to, long distance) {
         if (coordinates == null) {
@@ -88,9 +88,6 @@ public class Route implements Comparable<Route>{
     public Coordinates getCoordinates() {
         return coordinates;
     }
-    public java.time.LocalDate getCreationDate() {
-        return creationDate;
-    }
     public Location getFrom() {
         return from;
     }
@@ -99,9 +96,6 @@ public class Route implements Comparable<Route>{
     }
     public long getDistance() {
         return distance;
-    }
-    public LocalDateTime getStartTime() {
-        return creationDate.atStartOfDay();
     }
     public void setId(long id) {
         this.id = id;

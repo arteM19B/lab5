@@ -9,7 +9,7 @@ import CollectionManager.CollectionManager;
  * @version 1.0
  */
 public class ShowCommand implements Command {
-    private CollectionManager collectionManager;
+    private final CollectionManager collectionManager;
 
     public ShowCommand(CollectionManager collectionManager) {
         this.collectionManager = collectionManager;

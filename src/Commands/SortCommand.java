@@ -1,6 +1,6 @@
 package Commands;
 
-import Collection.Route;
+
 import CollectionManager.CollectionManager;
 /**
  * Команда сортировки коллекции.
@@ -10,7 +10,7 @@ import CollectionManager.CollectionManager;
  * @version 1.0
  */
 public class SortCommand implements Command {
-    private CollectionManager collectionManager;
+    private final CollectionManager collectionManager;
 
 
     public SortCommand(CollectionManager collectionManager) {

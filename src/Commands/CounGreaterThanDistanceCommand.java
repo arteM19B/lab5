@@ -2,7 +2,6 @@ package Commands;
 
 import CollectionManager.CollectionManager;
 
-import java.util.Collection;
 /**
  * Команда подсчёта количества элементов, у которых значение поля distance
  * больше заданного.

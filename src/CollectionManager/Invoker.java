@@ -12,7 +12,7 @@ import java.util.Map;
  * @version 1.0
  */
 public class Invoker {
-    private Map<String, Command> commandsMap = new HashMap<>();
+    private final Map<String, Command> commandsMap = new HashMap<>();
     public void registerCommand(String name, Command command) {
             commandsMap.put(name, command);
     }
@@ -21,7 +21,4 @@ public class Invoker {
         return commandsMap.get(name);
     }
 
-    public boolean HasCommand(String name) {
-        return commandsMap.containsKey(name);
-    }
 }

@@ -8,7 +8,7 @@ import java.util.Map;
  * @version 1.0
  */
 public class HelpCommand implements Command {
-    private Map<String, Command> commands;
+    private final Map<String, Command> commands;
     public HelpCommand(Map<String, Command> commands) {
         this.commands = commands;
     }

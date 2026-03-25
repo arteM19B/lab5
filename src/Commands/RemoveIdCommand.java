@@ -12,7 +12,7 @@ import java.util.Iterator;
  * @version 1.0
  */
 public class RemoveIdCommand implements Command {
-    private CollectionManager collectionManager;
+    private final CollectionManager collectionManager;
     private long id;
 
     public RemoveIdCommand(CollectionManager collectionManager) {

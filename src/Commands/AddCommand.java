@@ -1,7 +1,4 @@
 package Commands;
-import Collection.Coordinates;
-import Collection.IdGenerator;
-import Collection.Location;
 import Collection.Route;
 import CollectionManager.CollectionManager;
 
@@ -14,7 +11,7 @@ import java.util.Scanner;
  * @author artem_bahetkin
  * @version 1.0
  */
-public class AddCommand  implements Command{
+public class AddCommand implements Command{
     private final CollectionManager collectionManager;
     private final Scanner scanner;
     private Scanner scriptScanner;

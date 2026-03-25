@@ -7,8 +7,8 @@ package Collection;
  * @version 1.0
  */
 public class Coordinates {
-    private Long x; //Значение поля должно быть больше -248, Поле не может быть null
-    private Integer y; //Значение поля должно быть больше -448, Поле не может быть null
+    private final Long x; //Значение поля должно быть больше -248, Поле не может быть null
+    private final Integer y; //Значение поля должно быть больше -448, Поле не может быть null
 
     public Coordinates(Long x, Integer y) {
         if (x < -248 || x == null) {
