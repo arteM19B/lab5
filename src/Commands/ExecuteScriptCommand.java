@@ -1,5 +1,7 @@
 package Commands;
 
+import Collection.Route;
+import Collection.RouteXMLParser;
 import CollectionManager.Invoker;
 import Exceptions.RecursiveScriptException;
 import Exceptions.ScriptExecutionException;
@@ -77,12 +79,31 @@ public class ExecuteScriptCommand implements Command {
                     continue;
                 }
 
-                try {
+                if (command instanceof AddCommand || command instanceof UpdateCommand) {
 
+                    if (command instanceof UpdateCommand && arg != null) {
+                        ((UpdateCommand) command).setArgument(Long.parseLong(arg));
+                    }
+
+                    try {
+                        Route route = RouteXMLParser.parse(fileScanner);
+
+                        if (command instanceof AddCommand) {
+                            ((AddCommand) command).setRoute(route);
+                        } else {
+                            ((UpdateCommand) command).setRoute(route);
+                        }
+
+                        command.execute();
+                    } catch (Exception e) {
+                        System.out.println("Ошибка парсинга XML в скрипте: " + e.getMessage());
+                    }
+                    continue;
+                }
+
+                try {
                     if (arg != null) {
-                        if (command instanceof UpdateCommand) {
-                            ((UpdateCommand) command).setArgument(Long.parseLong(arg));
-                        } else if (command instanceof RemoveIdCommand) {
+                        if (command instanceof RemoveIdCommand) {
                             ((RemoveIdCommand) command).setArgument(Long.parseLong(arg));
                         } else if (command instanceof RemoveAtCommand) {
                             ((RemoveAtCommand) command).setArgument(Integer.parseInt(arg));

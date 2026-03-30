@@ -15,8 +15,7 @@ public class UpdateCommand implements Command {
     private long id = -1;
     private final Scanner scanner;
     private Scanner scriptScanner;
-
-
+    private Route routeFromXml = null;
 
     public UpdateCommand(CollectionManager collectionManager, Scanner scanner) {
         this.collectionManager = collectionManager;
@@ -26,6 +25,10 @@ public class UpdateCommand implements Command {
 
     public void setArgument(long id) {
         this.id = id;
+    }
+
+    public void setRoute(Route route) {
+        this.routeFromXml = route;
     }
 
     public void setScriptScanner(Scanner scriptScanner) {
@@ -49,13 +52,17 @@ public class UpdateCommand implements Command {
         boolean isInteractive = (scriptScanner == null);
 
         try {
-            System.out.println("Обновление маршрута с ID = " + id);
-            RouteBuilder builder = new RouteBuilder(activeScanner, isInteractive);
-            Route newRoute = builder.build();
-
-            newRoute.setId(id);
-
-            collectionManager.update(id, newRoute);
+            if (routeFromXml != null) {
+                routeFromXml.setId(id);
+                collectionManager.update(id, routeFromXml);
+                routeFromXml = null;
+            } else {
+                System.out.println("Обновление маршрута с ID = " + id);
+                RouteBuilder builder = new RouteBuilder(activeScanner, isInteractive);
+                Route newRoute = builder.build();
+                newRoute.setId(id);
+                collectionManager.update(id, newRoute);
+            }
         } catch (Exception e) {
             System.out.println("Не удалось обновить маршрут: " + e.getMessage());
         } finally {

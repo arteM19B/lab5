@@ -26,10 +26,13 @@ public class CollectionManager {
     private final LinkedList<Route> collection = new LinkedList<>();
     private final LocalDateTime initializationTime;
     private String fileName;
+    private static CollectionManager instance;
 
     public CollectionManager(String fileName) {
         this.initializationTime = LocalDateTime.now();
         this.fileName = fileName;
+
+        instance = this;
     }
 
     public CollectionManager() {
@@ -54,6 +57,14 @@ public class CollectionManager {
         }
         collection.remove(index);
         System.out.println("Коллекция на позиции " + index + "удалена");
+    }
+
+    public static void setInstance(CollectionManager instance) {
+        CollectionManager.instance = instance;
+    }
+
+    public static CollectionManager getInstance() {
+        return instance;
     }
 
     public void update(long id, Route newRoute) {
@@ -193,7 +204,7 @@ public class CollectionManager {
         }
     }
 
-    private Route parseRoute(Scanner scanner) {
+    public Route parseRoute(Scanner scanner) {
         long id = 0;
         String name = null;
         Coordinates coordinates = null;

@@ -16,11 +16,16 @@ public class AddCommand implements Command{
     private final CollectionManager collectionManager;
     private final Scanner scanner;
     private Scanner scriptScanner;
+    private Route routeFromXml = null;
 
     public AddCommand(CollectionManager collectionManager, Scanner scanner) {
         this.collectionManager = collectionManager;
         this.scanner = scanner;
         this.scriptScanner = null;
+    }
+
+    public void setRoute(Route route) {
+        this.routeFromXml = route;
     }
 
     public void setScriptScanner(Scanner scriptScanner) {
@@ -32,9 +37,14 @@ public class AddCommand implements Command{
         Scanner activeScanner = (scriptScanner != null) ? scriptScanner : scanner;
         boolean isConsole = (scriptScanner == null);
         try {
-            RouteBuilder builder = new RouteBuilder(activeScanner, isConsole);
-            Route route = builder.build();
-            collectionManager.add(route);
+            if (routeFromXml != null) {
+                collectionManager.add(routeFromXml);
+                routeFromXml = null;
+            } else {
+                RouteBuilder builder = new RouteBuilder(activeScanner, true);
+                Route route = builder.build();
+                collectionManager.add(route);
+            }
         } catch (Exception e) {
             System.out.println("Не удалось добавить маршрут: " + e.getMessage());
         } finally {
