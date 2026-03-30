@@ -20,13 +20,13 @@ public class Route implements Comparable<Route>{
 
     public Route(long id, String name, Coordinates coordinates, Location from, Location to, long distance) {
         if (coordinates == null) {
-            throw new IllegalArgumentException("coordinates can't be null");
+            throw new IllegalArgumentException("координаты не могут быть null");
         }
         if (distance <= 1) {
-            throw new IllegalArgumentException("distance must be greater than 1");
+            throw new IllegalArgumentException("дистанция должна быть больше 1 (>1)");
         }
         if (name == null) {
-            throw new IllegalArgumentException("name can't be null");
+            throw new IllegalArgumentException("имя маршрута не может быть null");
         }
         this.id = id;
         this.coordinates = coordinates;
@@ -39,13 +39,13 @@ public class Route implements Comparable<Route>{
 
     public Route(String name, Coordinates coordinates, Location from, Location to, long distance) {
         if (coordinates == null) {
-            throw new IllegalArgumentException("coordinates can't be null");
+            throw new IllegalArgumentException("координаты не могут быть null");
         }
         if (distance <= 1) {
-            throw new IllegalArgumentException("distance must be greater than 1");
+            throw new IllegalArgumentException("дистанция должна быть больше 1 (>1)");
         }
         if (name == null) {
-            throw new IllegalArgumentException("name can't be null");
+            throw new IllegalArgumentException("имя маршрута не может быть null");
         }
         this.id = IdGenerator.next();
         this.coordinates = coordinates;

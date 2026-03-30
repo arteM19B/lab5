@@ -139,8 +139,5 @@ public class Main {
                 System.out.println("Неизвестная команда. Введите 'help' для справки.");
             }
         }
-
-
-
     }
 }

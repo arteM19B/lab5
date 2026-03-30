@@ -1,6 +1,8 @@
 package Commands;
 
 import CollectionManager.Invoker;
+import Exceptions.RecursiveScriptException;
+import Exceptions.ScriptExecutionException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -45,18 +47,19 @@ public class ExecuteScriptCommand implements Command {
         }
 
         if (executingScripts.contains(normalizedPath)) {
-            System.out.println("Ошибка: обнаружен рекурсивный (циклический) вызов скрипта!");
-            System.out.println("Файл уже выполняется: " + fileName);
-            return;
+            throw new RecursiveScriptException(fileName);
         }
 
         System.out.println("Выполняется скрипт: " + fileName);
 
         executingScripts.add(normalizedPath);
 
+        int lineNumber = 0;
+
         try (Scanner fileScanner = new Scanner(file)) {
 
             while (fileScanner.hasNextLine()) {
+                lineNumber++;
                 String line = fileScanner.nextLine().trim();
 
                 if (line.isEmpty() || line.startsWith("#") || line.startsWith("//")) {
@@ -64,48 +67,52 @@ public class ExecuteScriptCommand implements Command {
                 }
 
                 String[] parts = line.split("\\s+", 2);
-                String cmdName = parts[0];
+                String commandName = parts[0];
                 String arg = (parts.length > 1) ? parts[1].trim() : null;
 
-                Command command = invoker.getCommand(cmdName);
+                Command command = invoker.getCommand(commandName);
 
                 if (command == null) {
-                    System.out.println("Неизвестная команда в скрипте: " + cmdName);
+                    System.out.println("Неизвестная команда в скрипте: " + commandName);
                     continue;
                 }
 
-                if (arg != null) {
-                    if (command instanceof UpdateCommand) {
-                        ((UpdateCommand) command).setArgument(Long.parseLong(arg));
-                    } else if (command instanceof RemoveIdCommand) {
-                        ((RemoveIdCommand) command).setArgument(Long.parseLong(arg));
-                    } else if (command instanceof RemoveAtCommand) {
-                        ((RemoveAtCommand) command).setArgument(Integer.parseInt(arg));
-                    } else if (command instanceof RemoveAllByDistanceCommand) {
-                        ((RemoveAllByDistanceCommand) command).setArgument(Long.parseLong(arg));
-                    } else if (command instanceof CounGreaterThanDistanceCommand) {
-                        ((CounGreaterThanDistanceCommand) command).setArgument(Long.parseLong(arg));
-                    } else if (command instanceof FilterLessThanDistanceCommand) {
-                        ((FilterLessThanDistanceCommand) command).setArgument(Long.parseLong(arg));
-                    } else if (command instanceof ExecuteScriptCommand) {
-                        ((ExecuteScriptCommand) command).setArgument(arg);
+                try {
+
+                    if (arg != null) {
+                        if (command instanceof UpdateCommand) {
+                            ((UpdateCommand) command).setArgument(Long.parseLong(arg));
+                        } else if (command instanceof RemoveIdCommand) {
+                            ((RemoveIdCommand) command).setArgument(Long.parseLong(arg));
+                        } else if (command instanceof RemoveAtCommand) {
+                            ((RemoveAtCommand) command).setArgument(Integer.parseInt(arg));
+                        } else if (command instanceof RemoveAllByDistanceCommand) {
+                            ((RemoveAllByDistanceCommand) command).setArgument(Long.parseLong(arg));
+                        } else if (command instanceof CounGreaterThanDistanceCommand) {
+                            ((CounGreaterThanDistanceCommand) command).setArgument(Long.parseLong(arg));
+                        } else if (command instanceof FilterLessThanDistanceCommand) {
+                            ((FilterLessThanDistanceCommand) command).setArgument(Long.parseLong(arg));
+                        } else if (command instanceof ExecuteScriptCommand) {
+                            ((ExecuteScriptCommand) command).setArgument(arg);
+                        }
                     }
+
+                    if (command instanceof AddCommand) {
+                        ((AddCommand) command).setScriptScanner(fileScanner);
+                    } else if (command instanceof UpdateCommand) {
+                        ((UpdateCommand) command).setScriptScanner(fileScanner);
+                    }
+
+                    command.execute();
+
+                } catch (Exception e) {
+                    throw new ScriptExecutionException(e.getMessage(), fileName, lineNumber, commandName);
+                } finally {
+                    if (command instanceof AddCommand) ((AddCommand) command).setScriptScanner(null);
+                    if (command instanceof UpdateCommand) ((UpdateCommand) command).setScriptScanner(null);
                 }
-
-                if (command instanceof AddCommand) {
-                    ((AddCommand) command).setScriptScanner(fileScanner);
-                } else if (command instanceof UpdateCommand) {
-                    ((UpdateCommand) command).setScriptScanner(fileScanner);
-                }
-
-                command.execute();
-
-                if (command instanceof AddCommand) ((AddCommand) command).setScriptScanner(null);
-                if (command instanceof UpdateCommand) ((UpdateCommand) command).setScriptScanner(null);
             }
-
             System.out.println("Скрипт успешно завершён: " + fileName);
-
         } catch (FileNotFoundException e) {
             System.out.println("Файл не найден: " + fileName);
         } catch (Exception e) {

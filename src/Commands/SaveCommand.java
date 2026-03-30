@@ -1,6 +1,8 @@
 package Commands;
 
 import CollectionManager.CollectionManager;
+import Exceptions.InvalidFileException;
+
 /**
  * Команда сохранения коллекции в файл.
  * Сохраняет текущую коллекцию в XML-файл, указанный при запуске программы.

@@ -1,8 +1,4 @@
-package Commands;
-
-import Collection.Coordinates;
-import Collection.Location;
-import Collection.Route;
+package Collection;
 
 import java.util.Scanner;
 /**

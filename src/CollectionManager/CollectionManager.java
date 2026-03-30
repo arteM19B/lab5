@@ -81,7 +81,7 @@ public class CollectionManager {
         }
     }
 
-    public int  size() {
+    public int size() {
         return collection.size();
     }
 
@@ -136,7 +136,7 @@ public class CollectionManager {
         return count;
     }
 
-    public void save() {
+    public void save()  {
         if (fileName == null || fileName.isEmpty()) {
             System.out.println("Имя файла не найдено");
             return;
