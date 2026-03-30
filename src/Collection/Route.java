@@ -1,6 +1,8 @@
 package Collection;
 
 import java.time.LocalDate;
+import java.util.Objects;
+
 /**
  * Класс, представляющий маршрут в коллекции.
  * Содержит информацию о маршруте: название, координаты, начальную и конечную точки,
