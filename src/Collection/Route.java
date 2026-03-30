@@ -11,7 +11,7 @@ import java.util.Objects;
  * @author artem_bahetkin
  * @version 1.0
  */
-public class Route implements Comparable<Route>{
+public class Route implements Comparable<Route> {
     private long id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private final String name; //Поле не может быть null, Строка не может быть пустой
     private final Coordinates coordinates; //Поле не может быть null
