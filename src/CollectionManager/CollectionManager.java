@@ -243,9 +243,11 @@ public class CollectionManager {
                 return null;
             }
 
-            Route route = new Route(name, coordinates, from, to, distance);
-            route.setId(id);
-            return route;
+            if (id > 0) {
+                return new Route(id, name, coordinates, from, to, distance);
+            } else {
+                return new Route(name, coordinates, from, to, distance);
+            }
 
         } catch (Exception e) {
             System.out.println("Ошибка парсинга маршрута: " + e.getMessage());
