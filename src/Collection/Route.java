@@ -104,4 +104,18 @@ public class Route implements Comparable<Route>{
     public String toString() {
         return(name + "; " + coordinates + "; " + from + " -> " + to + "; " + distance + "; Дата создания: " + creationDate + "; ID маршрута: " + id);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Route route = (Route) o;
+        return id == route.id && Objects.equals(name, route.name) && coordinates == route.coordinates && creationDate == route.creationDate &&
+                from == route.from && to == route.to && distance == route.distance;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, coordinates, creationDate, from, to, distance);
+    }
 }
