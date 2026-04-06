@@ -1,7 +1,6 @@
 package Commands;
 
 import CollectionManager.CollectionManager;
-import Exceptions.InvalidFileException;
 
 /**
  * Команда сохранения коллекции в файл.
