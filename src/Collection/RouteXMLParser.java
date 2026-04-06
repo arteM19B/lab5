@@ -5,8 +5,6 @@ import CollectionManager.CollectionManager;
 import java.util.Scanner;
 
 public class RouteXMLParser {
-    StringBuilder xml = new StringBuilder();
-    boolean insideRoute = false;
     private final CollectionManager collectionManager;
     private final Scanner scanner;
 
@@ -15,7 +13,7 @@ public class RouteXMLParser {
         this.scanner = scanner;
     }
 
-    public static Route parse(Scanner scanner) {
+    public static Route parse(Scanner scanner) throws Exception {
         StringBuilder xml = new StringBuilder();
         boolean insideRoute = false;
 
@@ -30,12 +28,12 @@ public class RouteXMLParser {
                 xml.append(line).append("\n");
             }
 
-            if (line.endsWith("</route>") || line.equals("</route>")) {
+            if (line.endsWith("</route>")) {
                 break;
             }
         }
-        if (xml.length() == 0) {
-            //
+        if (xml.isEmpty()) {
+            throw new Exception("Не найден xml блок");
         }
 
         return parseXmlString(xml.toString());
