@@ -95,7 +95,7 @@ public class RouteBuilder {
 
         if (line.isEmpty()) {
             printError("Поле не может быть пустым");
-            return readLocation(promptText, canBeNull); // повтор
+            return readLocation(promptText, canBeNull); 
         }
 
         String[] parts = line.split("\\s+");
