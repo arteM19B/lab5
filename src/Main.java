@@ -86,7 +86,14 @@ public class Main {
 
         while (true) {
             System.out.print("> ");
-            String input = scanner.nextLine().trim();
+            String input;
+
+            try {
+                input = scanner.nextLine().trim();
+            } catch (Exception e) {
+                break;
+            }
+
 
             if (input.isEmpty()) continue;
 

@@ -2,6 +2,7 @@ package Commands;
 import Collection.Route;
 import Collection.RouteBuilder;
 import CollectionManager.CollectionManager;
+import Exceptions.ExitException;
 
 
 import java.util.Scanner;
@@ -45,6 +46,8 @@ public class AddCommand implements Command{
                 Route route = builder.build();
                 collectionManager.add(route);
             }
+        } catch (ExitException e) {
+            System.out.println("Выход из режима ввода маршрута");
         } catch (Exception e) {
             System.out.println("Не удалось добавить маршрут: " + e.getMessage());
         } finally {

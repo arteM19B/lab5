@@ -2,6 +2,8 @@ package Commands;
 
 import CollectionManager.CollectionManager;
 import Collection.*;
+import Exceptions.ExitException;
+
 import java.util.Scanner;
 /**
  * Команда обновления существующего элемента коллекции по его ID.
@@ -63,6 +65,8 @@ public class UpdateCommand implements Command {
                 newRoute.setId(id);
                 collectionManager.update(id, newRoute);
             }
+        } catch (ExitException e) {
+            System.out.println("Выход из режима обновления маршрута");
         } catch (Exception e) {
             System.out.println("Не удалось обновить маршрут: " + e.getMessage());
         } finally {

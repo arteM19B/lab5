@@ -1,6 +1,7 @@
 package Collection;
 
 import java.util.Scanner;
+import Exceptions.ExitException;
 /**
  * Класс-помощник для интерактивного и скриптового создания объектов {@link Route}.
  * Отвечает за чтение данных от пользователя с валидацией вводимых значений.
@@ -17,7 +18,7 @@ public class RouteBuilder {
         this.isConsole = isConsole;
     }
 
-    public Route build() {
+    public Route build() throws ExitException {
         String name = readName();
         Coordinates coordinates = readCoordinates();
         Location from = readLocation("откуда (from)", true);
@@ -27,10 +28,11 @@ public class RouteBuilder {
         return new Route(name, coordinates, from, to, distance);
     }
 
-    private String readName() {
+    private String readName() throws ExitException{
         while (true) {
             printConsole("Введите имя маршрута (нужно хоть что-то ввести): ");
-            String input = scanner.nextLine().trim();
+            String input = nextLine().trim();
+            if (input.equals("exit")) throw new ExitException();
             if (input.isEmpty()) {
                 printError("Имя не может быть пустым");
                 continue;
@@ -39,12 +41,14 @@ public class RouteBuilder {
         }
     }
 
-    private Coordinates readCoordinates() {
+    private Coordinates readCoordinates() throws ExitException {
         while (true) {
             printConsole("Координата X (Long, > -248): ");
-            String xStr = scanner.nextLine().trim();
+            String xStr = nextLine().trim();
+            if (xStr.equals("exit")) throw new ExitException();
             printConsole("Координата Y (Integer, > -448): ");
-            String yStr = scanner.nextLine().trim();
+            String yStr = nextLine().trim();
+            if (yStr.equals("exit")) throw new ExitException();
 
             try {
                 long x = Long.parseLong(xStr);
@@ -66,10 +70,11 @@ public class RouteBuilder {
         }
     }
 
-    private long readDistance() {
+    private long readDistance() throws ExitException{
         while (true) {
             printConsole("Расстояние (long, > 1): ");
-            String input = scanner.nextLine().trim();
+            String input = nextLine().trim();
+            if (input.equals("exit")) throw new ExitException();
             try {
                 long dist = Long.parseLong(input);
                 if (dist <= 1) {
@@ -83,22 +88,23 @@ public class RouteBuilder {
         }
     }
 
-    private Location readLocation(String promptText, boolean canBeNull) {
+    private Location readLocation(String promptText, boolean canBeNull) throws ExitException{
         printConsole("Локация " + promptText + (canBeNull ? " (Enter для null)" : "") + "\n");
 
         printConsole("  Введите X Y (Float double) или Enter для null: ");
-        String line = scanner.nextLine().trim();
+        String input = nextLine().trim();
+        if (input.equals("exit")) throw new ExitException();
 
-        if (line.isEmpty() && canBeNull) {
+        if (input.isEmpty() && canBeNull) {
             return null;
         }
 
-        if (line.isEmpty()) {
+        if (input.isEmpty()) {
             printError("Поле не может быть пустым");
-            return readLocation(promptText, canBeNull); 
+            return readLocation(promptText, canBeNull);
         }
 
-        String[] parts = line.split("\\s+");
+        String[] parts = input.split("\\s+");
         if (parts.length != 2) {
             printError("Ожидается два числа: X Y");
             return readLocation(promptText, canBeNull);
@@ -109,13 +115,26 @@ public class RouteBuilder {
             double y = Double.parseDouble(parts[1]);
 
             printConsole("  Имя локации (или Enter для null): ");
-            String name = scanner.nextLine().trim();
+            String name = nextLine().trim();
+            if (name.equals("exit")) throw new ExitException();
             if (name.isEmpty()) name = null;
 
             return new Location(x, y, name);
         } catch (NumberFormatException e) {
             printError("Неверный формат координат");
             return readLocation(promptText, canBeNull);
+        }
+    }
+
+    private String nextLine() throws ExitException {
+        try {
+            if (scanner.hasNextLine()) {
+                return scanner.nextLine();
+            } else {
+                throw new ExitException();
+            }
+        } catch (Exception e) {
+            throw new ExitException();
         }
     }
 
