@@ -36,13 +36,13 @@ public class AddCommand implements Command{
     @Override
     public void execute() {
         Scanner activeScanner = (scriptScanner != null) ? scriptScanner : scanner;
-        boolean isConsole = (scriptScanner == null);
+        boolean isInteractive = (scriptScanner == null);
         try {
             if (routeFromXml != null) {
                 collectionManager.add(routeFromXml);
                 routeFromXml = null;
             } else {
-                RouteBuilder builder = new RouteBuilder(activeScanner, true);
+                RouteBuilder builder = new RouteBuilder(activeScanner, isInteractive);
                 Route route = builder.build();
                 collectionManager.add(route);
             }
