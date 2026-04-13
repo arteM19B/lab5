@@ -18,14 +18,14 @@ public class RouteBuilder {
         this.isConsole = isConsole;
     }
 
-    public Route build() throws ExitException {
+    public Route<Long> build() throws ExitException {
         String name = readName();
         Coordinates coordinates = readCoordinates();
         Location from = readLocation("откуда (from)", true);
         Location to = readLocation("куда (to)", true);
         long distance = readDistance();
 
-        return new Route(name, coordinates, from, to, distance);
+        return new Route<>(name, coordinates, from, to, distance);
     }
 
     private String readName() throws ExitException{

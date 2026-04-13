@@ -9,9 +9,9 @@ import CollectionManager.CollectionManager;
  * @version 1.0
  */
 public class ShowCommand implements Command {
-    private final CollectionManager collectionManager;
+    private final CollectionManager<Long> collectionManager;
 
-    public ShowCommand(CollectionManager collectionManager) {
+    public ShowCommand(CollectionManager<Long> collectionManager) {
         this.collectionManager = collectionManager;
     }
 

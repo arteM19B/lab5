@@ -10,9 +10,9 @@ import CollectionManager.CollectionManager;
  * @version 1.0
  */
 public class SaveCommand implements Command {
-    private final CollectionManager collectionManager;
+    private final CollectionManager<Long> collectionManager;
 
-    public SaveCommand(CollectionManager collectionManager) {
+    public SaveCommand(CollectionManager<Long> collectionManager) {
         this.collectionManager = collectionManager;
     }
 

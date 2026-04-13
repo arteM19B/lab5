@@ -10,10 +10,10 @@ import CollectionManager.CollectionManager;
  * @version 1.0
  */
 public class SortCommand implements Command {
-    private final CollectionManager collectionManager;
+    private final CollectionManager<Long> collectionManager;
 
 
-    public SortCommand(CollectionManager collectionManager) {
+    public SortCommand(CollectionManager<Long> collectionManager) {
         this.collectionManager = collectionManager;
     }
 

@@ -5,15 +5,15 @@ import CollectionManager.CollectionManager;
 import java.util.Scanner;
 
 public class RouteXMLParser {
-    private final CollectionManager collectionManager;
+    private final CollectionManager<Long> collectionManager;
     private final Scanner scanner;
 
-    public RouteXMLParser(CollectionManager collectionManager, Scanner scanner) {
+    public RouteXMLParser(CollectionManager<Long> collectionManager, Scanner scanner) {
         this.collectionManager = collectionManager;
         this.scanner = scanner;
     }
 
-    public static Route parse(Scanner scanner) throws Exception {
+    public static Route<Long> parse(Scanner scanner) throws Exception {
         StringBuilder xml = new StringBuilder();
         boolean insideRoute = false;
 
@@ -39,7 +39,7 @@ public class RouteXMLParser {
         return parseXmlString(xml.toString());
     }
 
-    private static Route parseXmlString(String xmlString) {
+    private static Route<Long> parseXmlString(String xmlString) {
         Scanner tempScanner = new Scanner(xmlString);
         return CollectionManager.getInstance().parseRoute(tempScanner);
     }

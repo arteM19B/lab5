@@ -9,9 +9,9 @@ import CollectionManager.CollectionManager;
  * @version 1.0
  */
 public class InfoCommand implements Command {
-    private final CollectionManager collectionManager;
+    private final CollectionManager<Long> collectionManager;
 
-    public InfoCommand(CollectionManager collectionManager) {
+    public InfoCommand(CollectionManager<Long> collectionManager) {
         this.collectionManager = collectionManager;
     }
 

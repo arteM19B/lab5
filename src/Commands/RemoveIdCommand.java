@@ -12,16 +12,16 @@ import java.util.Iterator;
  * @version 1.0
  */
 public class RemoveIdCommand implements Command {
-    private final CollectionManager collectionManager;
-    private long id;
+    private final CollectionManager<Long> collectionManager;
+    private Long id;
 
-    public RemoveIdCommand(CollectionManager collectionManager) {
+    public RemoveIdCommand(CollectionManager<Long> collectionManager) {
         this.collectionManager = collectionManager;
     }
 
     @Override
     public void execute() {
-        Iterator<Route> iterator = collectionManager.getCollection().iterator();
+        Iterator<Route<Long>> iterator = collectionManager.getCollection().iterator();
         while (iterator.hasNext()) {
             long removeId = iterator.next().getId();
             if (removeId == id) {
@@ -31,7 +31,7 @@ public class RemoveIdCommand implements Command {
         }
     }
 
-    public void setArgument(long id) {
+    public void setArgument(Long id) {
         this.id = id;
     }
 

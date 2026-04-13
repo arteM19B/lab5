@@ -22,30 +22,39 @@ import java.util.Scanner;
  * @author artem_bahetkin
  * @version 1.0
  */
-public class CollectionManager {
-    private final LinkedList<Route> collection = new LinkedList<>();
+public class CollectionManager <T extends Number>{
+    private final LinkedList<Route<T>> collection = new LinkedList<>();
     private final LocalDateTime initializationTime;
     private String fileName;
-    private static CollectionManager instance;
+    private static CollectionManager<Long> instance;
+    private final IdGenerator<T> idGenerator = new IdGenerator<>();
 
     public CollectionManager(String fileName) {
         this.initializationTime = LocalDateTime.now();
         this.fileName = fileName;
-
-        instance = this;
+        instance = (CollectionManager<Long>) this;
     }
 
     public CollectionManager() {
         this.initializationTime = LocalDateTime.now();
+        instance = (CollectionManager<Long>) this;
     }
 
-    public void add(Route route) {
+    public static CollectionManager<Long> getInstance() {
+        return instance;
+    }
+
+    public T generateNextId() {
+        return idGenerator.next();
+    }
+
+    public void add(Route<T> route) {
         collection.add(route);
         System.out.println("Added route: " + route.toString());
     }
 
     public void show() {
-        for (Route routes : collection) {
+        for (Route<T> routes : collection) {
             System.out.println(routes);
         }
     }
@@ -59,17 +68,9 @@ public class CollectionManager {
         System.out.println("Коллекция на позиции " + index + "удалена");
     }
 
-    public static void setInstance(CollectionManager instance) {
-        CollectionManager.instance = instance;
-    }
-
-    public static CollectionManager getInstance() {
-        return instance;
-    }
-
-    public void update(long id, Route newRoute) {
+    public void update(T id, Route<T> newRoute) {
         for (int i = 0; i < collection.size(); i++) {
-            if (collection.get(i).getId() == id) {
+            if (collection.get(i).getId().equals(id)) {
                 collection.set(i, newRoute);
                 System.out.println("Обновлённая дорога: " + newRoute.toString());
                 return;
@@ -108,13 +109,13 @@ public class CollectionManager {
         return initializationTime;
     }
 
-    public LinkedList<Route> getCollection() {
+    public LinkedList<Route<T>> getCollection() {
         return collection;
     }
 
-    public Route getById(long id) {
-        for (Route route : collection) {
-            if (route.getId() == id) {
+    public Route<T> getById(T id) {
+        for (Route<T> route : collection) {
+            if (route.getId().equals(id)) {
                 return route;
             }
         }
@@ -138,7 +139,7 @@ public class CollectionManager {
 
     public int filterLessThanDistance(long distance) {
         int count = 0;
-        for (Route route : collection) {
+        for (Route<T> route : collection) {
             if (route.getDistance() < distance) {
                 count++;
                 System.out.println(route);
@@ -155,7 +156,7 @@ public class CollectionManager {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
             writer.write("<routes>\n");
-            for (Route route : collection) {
+            for (Route<T> route : collection) {
                 writer.write(route.toXML() + "\n");
             }
             writer.write("</routes>\n");
@@ -185,17 +186,17 @@ public class CollectionManager {
                 String line = scanner.nextLine().trim();
 
                 if (line.equals("<route>")) {
-                    Route route = parseRoute(scanner);
+                    Route<T> route = parseRoute(scanner);
                     if (route != null) {
                         collection.add(route);
-                        if (route.getId() > maxId) {
-                            maxId = route.getId();
+                        if (route.getId().longValue() > maxId) {
+                            maxId = route.getId().longValue();
                         }
                     }
                 }
             }
 
-            IdGenerator.setCounter(maxId);
+            idGenerator.setCounter(maxId);
             System.out.println("Загружено " + collection.size() + " элементов из " + fileName);
 
         } catch (Exception e) {
@@ -204,8 +205,8 @@ public class CollectionManager {
         }
     }
 
-    public Route parseRoute(Scanner scanner) {
-        long id = 0;
+    public Route<T> parseRoute(Scanner scanner) {
+        Long id = 0L;
         String name = null;
         Coordinates coordinates = null;
         LocalDate creationDate;
@@ -244,9 +245,9 @@ public class CollectionManager {
             }
 
             if (id > 0) {
-                return new Route(id, name, coordinates, from, to, distance);
+                return new Route<T>((T) id, name, coordinates, from, to, distance);
             } else {
-                return new Route(name, coordinates, from, to, distance);
+                return new Route<>(name, coordinates, from, to, distance);
             }
 
         } catch (Exception e) {

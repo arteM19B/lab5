@@ -9,6 +9,7 @@ import java.util.Map;
  */
 public class HelpCommand implements Command {
     private final Map<String, Command> commands;
+
     public HelpCommand(Map<String, Command> commands) {
         this.commands = commands;
     }
@@ -19,9 +20,4 @@ public class HelpCommand implements Command {
             System.out.println(entry.getKey() + " -- " + entry.getValue());
         }
     }
-
-//    @Override
-//    public String toString() {
-//
-//    }
 }

@@ -86,7 +86,7 @@ public class ExecuteScriptCommand implements Command {
                     }
 
                     try {
-                        Route route = RouteXMLParser.parse(fileScanner);
+                        Route<Long> route = RouteXMLParser.parse(fileScanner);
 
                         if (command instanceof AddCommand) {
                             ((AddCommand) command).setRoute(route);
@@ -117,20 +117,10 @@ public class ExecuteScriptCommand implements Command {
                             ((ExecuteScriptCommand) command).setArgument(arg);
                         }
                     }
-
-                    if (command instanceof AddCommand) {
-                        ((AddCommand) command).setScriptScanner(fileScanner);
-                    } else if (command instanceof UpdateCommand) {
-                        ((UpdateCommand) command).setScriptScanner(fileScanner);
-                    }
-
                     command.execute();
 
                 } catch (Exception e) {
                     throw new ScriptExecutionException(e.getMessage(), fileName, lineNumber, commandName);
-                } finally {
-                    if (command instanceof AddCommand) ((AddCommand) command).setScriptScanner(null);
-                    if (command instanceof UpdateCommand) ((UpdateCommand) command).setScriptScanner(null);
                 }
             }
             System.out.println("Скрипт успешно завершён: " + fileName);

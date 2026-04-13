@@ -2,6 +2,7 @@ package Collection;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import CollectionManager.CollectionManager;
 
 /**
  * Класс, представляющий маршрут в коллекции.
@@ -11,8 +12,8 @@ import java.util.Objects;
  * @author artem_bahetkin
  * @version 1.0
  */
-public class Route implements Comparable<Route> {
-    private long id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+public class Route<T extends Number> implements Comparable<Route> {
+    private T id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private final String name; //Поле не может быть null, Строка не может быть пустой
     private final Coordinates coordinates; //Поле не может быть null
     private final java.time.LocalDate creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
@@ -20,7 +21,7 @@ public class Route implements Comparable<Route> {
     private final Location to; //Поле может быть null
     private final long distance; //Значение поля должно быть больше 1
 
-    public Route(long id, String name, Coordinates coordinates, Location from, Location to, long distance) {
+    public Route(T id, String name, Coordinates coordinates, Location from, Location to, long distance) {
         if (coordinates == null) {
             throw new IllegalArgumentException("координаты не могут быть null");
         }
@@ -49,7 +50,7 @@ public class Route implements Comparable<Route> {
         if (name == null) {
             throw new IllegalArgumentException("имя маршрута не может быть null");
         }
-        this.id = IdGenerator.next();
+        this.id = (T) CollectionManager.getInstance().generateNextId();
         this.coordinates = coordinates;
         this.name = name;
         this.creationDate = LocalDate.now();
@@ -80,7 +81,7 @@ public class Route implements Comparable<Route> {
         return sb.toString();
     }
 
-    public long getId() {
+    public T getId() {
         return id;
     }
     public String getName() {
@@ -98,7 +99,7 @@ public class Route implements Comparable<Route> {
     public long getDistance() {
         return distance;
     }
-    public void setId(long id) {
+    public void setId(T id) {
         this.id = id;
     }
 

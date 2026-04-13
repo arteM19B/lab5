@@ -22,7 +22,7 @@ public class Main {
         }
 
         String fileName = args[0];
-        CollectionManager collectionManager = new CollectionManager(fileName);
+        CollectionManager<Long> collectionManager = new CollectionManager<Long>(fileName);
         collectionManager.load();
 
 
@@ -104,7 +104,7 @@ public class Main {
             if (command != null) {
                 if (command instanceof UpdateCommand && parts.length > 1) {
                     try {
-                        long id = Long.parseLong(parts[1].trim());
+                        Long id = Long.parseLong(parts[1].trim());
                         ((UpdateCommand) command).setArgument(id);
                     } catch (NumberFormatException e) {
                         System.out.println("Неверный формат ID");
@@ -112,7 +112,7 @@ public class Main {
                     }
                 } else if (command instanceof RemoveIdCommand && parts.length > 1) {
                     try {
-                        long id = Long.parseLong(parts[1].trim());
+                        Long id = Long.parseLong(parts[1].trim());
                         ((RemoveIdCommand) command).setArgument(id);
                     } catch (NumberFormatException e) {
                         System.out.println("Неверный формат ID");

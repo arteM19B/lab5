@@ -11,10 +11,10 @@ import CollectionManager.CollectionManager;
  */
 public class CounGreaterThanDistanceCommand implements Command {
 
-    private final CollectionManager collectionManager;
+    private final CollectionManager<Long> collectionManager;
     private long distance = -1;
 
-    public CounGreaterThanDistanceCommand(CollectionManager collectionManager) {
+    public CounGreaterThanDistanceCommand(CollectionManager<Long> collectionManager) {
         this.collectionManager = collectionManager;
     }
 

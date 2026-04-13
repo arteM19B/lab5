@@ -9,10 +9,10 @@ import CollectionManager.CollectionManager;
  * @version 1.0
  */
 public class FilterLessThanDistanceCommand implements Command {
-    private final CollectionManager collectionManager;
+    private final CollectionManager<Long> collectionManager;
     private long distance = -1;
 
-    public FilterLessThanDistanceCommand(CollectionManager collectionManager) {
+    public FilterLessThanDistanceCommand(CollectionManager<Long> collectionManager) {
         this.collectionManager = collectionManager;
     }
 

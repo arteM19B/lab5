@@ -10,10 +10,10 @@ import CollectionManager.CollectionManager;
  */
 public class RemoveAllByDistanceCommand implements Command {
 
-    private final CollectionManager collectionManager;
+    private final CollectionManager<Long> collectionManager;
     private long distance = -1;
 
-    public RemoveAllByDistanceCommand(CollectionManager collectionManager) {
+    public RemoveAllByDistanceCommand(CollectionManager<Long> collectionManager) {
         this.collectionManager = collectionManager;
     }
 

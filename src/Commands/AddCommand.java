@@ -14,18 +14,18 @@ import java.util.Scanner;
  * @version 1.0
  */
 public class AddCommand implements Command{
-    private final CollectionManager collectionManager;
+    private final CollectionManager<Long> collectionManager;
     private final Scanner scanner;
     private Scanner scriptScanner;
-    private Route routeFromXml = null;
+    private Route<Long> routeFromXml = null;
 
-    public AddCommand(CollectionManager collectionManager, Scanner scanner) {
+    public AddCommand(CollectionManager<Long> collectionManager, Scanner scanner) {
         this.collectionManager = collectionManager;
         this.scanner = scanner;
         this.scriptScanner = null;
     }
 
-    public void setRoute(Route route) {
+    public void setRoute(Route<Long> route) {
         this.routeFromXml = route;
     }
 
@@ -43,7 +43,7 @@ public class AddCommand implements Command{
                 routeFromXml = null;
             } else {
                 RouteBuilder builder = new RouteBuilder(activeScanner, isInteractive);
-                Route route = builder.build();
+                Route<Long> route = builder.build();
                 collectionManager.add(route);
             }
         } catch (ExitException e) {

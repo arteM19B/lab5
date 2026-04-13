@@ -6,14 +6,14 @@ package Collection;
  * @author artem_bahetkin
  * @version 1.0
  */
-public class IdGenerator {
-    private static long counter = 0;
+public class IdGenerator<T extends Number> {
+    private long counter = 0;
 
-    public static long next() {
-        return ++counter;
+    public T next() {
+        return (T) Long.valueOf(++counter);
     }
 
-    public static void setCounter(long value) {
+    public void setCounter(long value) {
         counter = value;
     }
 

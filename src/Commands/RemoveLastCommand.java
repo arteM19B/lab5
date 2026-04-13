@@ -9,9 +9,9 @@ import CollectionManager.CollectionManager;
  * @version 1.0
  */
 public class RemoveLastCommand implements Command {
-    private final CollectionManager collectionManager;
+    private final CollectionManager<Long> collectionManager;
 
-    public RemoveLastCommand(CollectionManager collectionManager) {
+    public RemoveLastCommand(CollectionManager<Long> collectionManager) {
         this.collectionManager = collectionManager;
     }
 

@@ -9,10 +9,10 @@ import CollectionManager.CollectionManager;
  * @version 1.0
  */
 public class RemoveAtCommand implements Command {
-    private final CollectionManager collectionManager;
+    private final CollectionManager<Long> collectionManager;
     private int index = -1;
 
-    public RemoveAtCommand(CollectionManager collectionManager) {
+    public RemoveAtCommand(CollectionManager<Long> collectionManager) {
         this.collectionManager = collectionManager;
     }
 

@@ -9,9 +9,9 @@ import CollectionManager.CollectionManager;
  * @version 1.0
  */
 public class ClearCommand implements Command {
-    private final CollectionManager collectionManager;
+    private final CollectionManager<Long> collectionManager;
 
-    public ClearCommand(CollectionManager collectionManager) {
+    public ClearCommand(CollectionManager<Long> collectionManager) {
         this.collectionManager = collectionManager;
     }
 
