@@ -153,6 +153,15 @@ public class CollectionManager <T extends Number>{
             System.out.println("Имя файла не найдено");
             return;
         }
+        File file = new File(fileName);
+        if (!file.isFile()) {
+            System.out.println("Ошибка: " + fileName + " не является файлом");
+            return;
+        }
+        if (!file.canWrite()) {
+            System.out.println("Ошибка: нет доступа для записи в файл");
+            return;
+        }
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
             writer.write("<routes>\n");
@@ -177,7 +186,10 @@ public class CollectionManager <T extends Number>{
             System.out.println("Файл " + fileName + " не найден. Коллекция пустая.");
             return;
         }
-
+        if (!file.canRead()) {
+            System.out.println("Ошибка: невозможно прочитать данные из файла");
+            return;
+        }
         collection.clear();
         long maxId = 0;
 
