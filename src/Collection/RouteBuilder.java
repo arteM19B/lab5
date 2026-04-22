@@ -46,26 +46,30 @@ public class RouteBuilder {
             printConsole("Координата X (Long, > -248): ");
             String xStr = nextLine().trim();
             if (xStr.equals("exit")) throw new ExitException();
-            long x = Long.parseLong(xStr);
+            long x = 0;
             try {
+                x = Long.parseLong(xStr);
                 if (x <= -248) {
                     printError("X должен быть больше -248");
                     continue;
                 }
             } catch (NumberFormatException e) {
                 printError("Неверный формат числа");
+                return readCoordinates();
             }
             printConsole("Координата Y (Integer, > -448): ");
             String yStr = nextLine().trim();
             if (yStr.equals("exit")) throw new ExitException();
-            int y = Integer.parseInt(yStr);
+            int y = 0;
             try {
+                y = Integer.parseInt(yStr);
                 if (y <= -448) {
                     printError("Y должен быть больше -448");
                     continue;
                 }
             } catch (NumberFormatException e) {
                 printError("Неверный формат числа");
+                return readCoordinates();
             }
             return new Coordinates(x, y);
         }
